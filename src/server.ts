@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
+import { log } from 'node:console';
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3000;
