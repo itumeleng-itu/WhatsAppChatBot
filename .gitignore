@@ -24,3 +24,8 @@ Thumbs.db
 *.swo
 EOF
 ```
+#private key
+
+private.key
+*.key
+*.pem
