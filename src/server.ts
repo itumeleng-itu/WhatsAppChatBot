@@ -1,5 +1,6 @@
 import express from 'express';
 import programmesRouter from './routes/programmes.routes'
+import faqsRouter from './routes/faq.routes';
 import dotenv from 'dotenv'
 
 dotenv.config();
@@ -11,7 +12,8 @@ app.use(express.json());
 //? API endpoint for getting programes
 app.use('/api/programmes', programmesRouter);
 
-//? 
+//? API endpoint for getting faq
+app.use('/api/fasq',faqsRouter)
 
 //? 404 handler
 app.use((_req, res) => {
