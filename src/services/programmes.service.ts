@@ -1,8 +1,8 @@
-import { Programme } from '../types/programmes.types';
+import { ProgrammeResponse } from "../types/programmes.types";
 
 const EXTERNAL_API =process.env.CODETRIBE_PROGRAMMES_API!;
 
-export const fetchProgrammes = async (): Promise<Programme[]> => {
+export const fetchProgrammes = async (): Promise<ProgrammeResponse> => {
   const response = await fetch(EXTERNAL_API);
 
   if (!response.ok) {

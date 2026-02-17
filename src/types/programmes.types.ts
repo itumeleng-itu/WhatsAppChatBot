@@ -1,9 +1,7 @@
-export type programmeScope = 'mlab' | 'codetribe';
 export type programmeOrder = 'asc' | 'desc';
 
-/** Query params */
+//* Query params sent to the API 
 export interface ProgrammeQuery {
-  scope?: programmeScope;
   category?: string;
   limit?: number;
   offset?: number;
@@ -11,10 +9,26 @@ export interface ProgrammeQuery {
   order?: programmeOrder;
 }
 
-/** Actual programme data */
-export interface Programme {
-  uuid: string;
+// * One programme item from external API 
+export interface ProgrammeItem {
+  id: string; 
   name: string;
-  scope: programmeScope;
   category: string;
+  short_description: string;
+  duration_weeks: number;
+  is_active: boolean;
+}
+
+//* Pagination info 
+export interface ProgrammePagination {
+  total: number;
+  limit: number;
+  offset: number;
+  hasMore: boolean;
+}
+
+//* Full API response 
+export interface ProgrammeResponse {
+  data: ProgrammeItem[];
+  pagination: ProgrammePagination;
 }
