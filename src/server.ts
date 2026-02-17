@@ -1,15 +1,29 @@
 import express from 'express';
-import 'dotenv/config';
-import { log } from 'node:console';
+import programmesRouter from './routes/programmes.routes';
+import faqsRouter from './routes/faq.routes';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const PORT: number = Number(process.env.PORT) || 3000;
+const PORT = process.env.PORT || 5000;
 
-// Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
+//? API endpoint for programmes
+app.use('/api/programmes', programmesRouter);
 
-app.listen(PORT, (): void => {
-  console.log(` Server running on  https://localhost:${PORT}`);
+//? API endpoint for FAQs
+app.use('/api/faqs', faqsRouter);
+
+//? API endpoint for Eligibility
+app.use('/api/eligility/[programmesId]')
+
+//* 404 handler
+app.use((_req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+app.listen(PORT, () => {
+  console.log(` Server running on http://localhost:${PORT}`);
 });
