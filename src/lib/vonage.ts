@@ -1,0 +1,12 @@
+import { Vonage } from '@vonage/server-sdk';
+import { Auth } from '@vonage/auth';
+
+// Initialize the Vonage client
+const vonage = new Vonage(new Auth({
+  apiKey: process.env.VONAGE_API_KEY,
+  apiSecret: process.env.VONAGE_API_SECRET,
+  applicationId: process.env.VONAGE_APP_ID,
+  privateKey: '../private.key' 
+}));
+
+export default vonage;
