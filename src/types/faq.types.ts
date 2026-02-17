@@ -1,7 +1,7 @@
 export type faqScope = 'mlab' | 'codetribe';
 
 //* Query params for fetching FAQs 
-export interface FaqQuery {
+export interface faqQuery {
   q: string;
   scope: faqScope;
   category?: string;

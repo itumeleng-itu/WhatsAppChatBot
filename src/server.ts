@@ -16,6 +16,9 @@ app.use('/api/programmes', programmesRouter);
 //? API endpoint for FAQs
 app.use('/api/faqs', faqsRouter);
 
+//? API endpoint for Eligibility
+app.use('/api/eligility/[programmesId]')
+
 //* 404 handler
 app.use((_req, res) => {
   res.status(404).json({ error: 'Route not found' });

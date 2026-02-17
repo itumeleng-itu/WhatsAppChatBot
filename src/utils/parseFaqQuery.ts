@@ -1,8 +1,8 @@
-import { FaqQuery } from '../types/faq.types';
+import { faqQuery } from '../types/faq.types';
 
 export const parseFaqQuery = (
   query: Record<string, string | undefined>
-): FaqQuery => {
+): faqQuery => {
   const limit = query.limit ? Number(query.limit) : 20;
   const offset = query.offset ? Number(query.offset) : 0;
 
