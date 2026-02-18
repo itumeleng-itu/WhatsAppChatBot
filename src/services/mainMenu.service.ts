@@ -8,6 +8,7 @@ import {
     fetchLocations,
     fetchFaqs
 } from './faq.services';
+import { PersonaAgent } from '../agents/persona';
 
 
 function getGreeting(): string {
@@ -33,6 +34,8 @@ const sendMessage = async (to: string, text: string) => {
         text
     });
 };
+
+const personaAgent = new PersonaAgent();
 
 export const WhatsAppService = {
 
@@ -228,5 +231,19 @@ export const WhatsAppService = {
         catch(err){
             console.error('Error sending locations', err)
         }
-    }
+    },
+    
+    async sendPersonalisedResponse(to: string, userQuestion: string) {
+        try {
+            await sendMessage(to, '⏳ Let me look that up for you...');
+            const { message, confidence } = await personaAgent.processQuery(to, userQuestion);
+            // low confidence = Sam isn't sure, signal it to the user
+            const prefix = confidence < 0.4 ? '🤔 *Sam is not 100% sure:*' : '🤖 *Sam says:*';
+            await sendMessage(to, `${prefix}\n\n${message}`);
+        } 
+        catch (err) {
+            console.error('Error sending personalised response:', err);
+            await sendMessage(to, '😔 Sorry, I ran into an issue. Please try again later.');
+        }
+    },
 }
