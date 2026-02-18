@@ -4,11 +4,7 @@
   "main": "dist/server.js",
   "type": "commonjs",
   "scripts": {
-<<<<<<< HEAD
     "dev": "nodemon --watch src/**/* --exec \"npx ts-node\" src/server.ts",
-=======
-    "dev": "nodemon --watch 'src/**/*' --exec 'ts-node' src/server.ts",
->>>>>>> 3a63e684efa5989ffa65335b19a7f2fbe87ecb98
     "build": "tsc",
     "start": "node dist/server.js",
     "test:integration": "npx ts-node test-integration.ts",
