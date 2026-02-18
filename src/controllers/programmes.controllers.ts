@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { fetchProgrammes } from '../services/programmes.service';
 import { parseProgrammeQuery } from '../utils/parseProgrammeQuery';
-import { ProgrammeItem } from '../types/programmes.types';
+import { ProgrammeItem } from '../types/schedules.types';
 
 export const getProgrammes = async (req: Request, res: Response) => {
   try {

@@ -1,22 +1,28 @@
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
-export type CriterionType =
-  | "age"
-  | "citizenship"
-  | "qualification"
-  | "employment_status"
-  | "financial"
-  | "other";
+export type LocationType =
+  | "headquarters"
+  | "satellite"
+  | "partner_site";
 
 // ─── Core Entity ──────────────────────────────────────────────────────────────
 
-export interface EligibilityCriterion {
+export interface Location {
   id: string;
-  programme_id: string;
-  criterion_type: CriterionType;
-  requirement_text: string;
-  is_mandatory: boolean;
-  sort_order: number;
+  name: string;
+  type: LocationType;
+  address_line1: string | null;
+  address_line2: string | null;
+  city: string;
+  province: string;
+  postal_code: string | null;
+  country: string;
+  latitude: number | null;
+  longitude: number | null;
+  contact_email: string | null;
+  contact_phone: string | null;
+  operating_hours: string | null;
+  is_active: boolean;
   created_at: string; // ISO 8601 datetime string
   updated_at: string; // ISO 8601 datetime string
 }
@@ -39,8 +45,8 @@ export interface ApiMeta {
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 
-export interface EligibilityApiResponse {
-  data: EligibilityCriterion[];
+export interface LocationsApiResponse {
+  data: Location[];
   pagination: Pagination;
   meta: ApiMeta;
 }

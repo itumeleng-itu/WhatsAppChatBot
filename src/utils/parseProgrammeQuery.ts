@@ -1,4 +1,4 @@
-import { ProgrammeQuery, programmeOrder } from '../types/programmes.types';
+import { ProgrammeQuery, programmeOrder } from '../types/schedules.types';
 
 export const parseProgrammeQuery = (
   query: Record<string, string | undefined>

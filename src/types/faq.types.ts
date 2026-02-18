@@ -1,43 +1,55 @@
-export type faqScope = 'mlab' | 'codetribe';
+// ─── Enums ────────────────────────────────────────────────────────────────────
 
-//* Query params for fetching FAQs 
-export interface faqQuery {
-  q: string;
-  scope: faqScope;
-  category?: string;
-  source?: string;
-  limit?: number;   
-  offset?: number; 
-  sort?: string;   
-  order?: 'asc' | 'desc';
-}
+export type FaqCategory =
+  | "policies"
+  | "financial"
+  | "general"
+  | "programme_details"
+  | "application"
+  | "eligibility"
+  | "logistics";
 
-//* Actual FAQ data returned from API 
-export interface FaqItem {
+export type FaqSource =
+  | "codetribe_whatsapp"
+  | "mlab_website"
+  | "both";
+
+// ─── Core Entity ──────────────────────────────────────────────────────────────
+
+export interface Faq {
   id: string;
   question: string;
   answer: string;
-  category?: string;
-  source?: string;
-  programme_id?: string | null;
-  keywords?: string[];
-  priority?: number;
-  is_active?: boolean;
-  created_at?: string;
-  updated_at?: string;
+  category: FaqCategory;
+  source: FaqSource;
+  programme_id: string | null; // null = applies globally, not programme-specific
+  keywords: string[];
+  priority: number;
+  is_active: boolean;
+  created_at: string; // ISO 8601 datetime string
+  updated_at: string; // ISO 8601 datetime string
 }
 
-//* Response from the API 
-export interface FaqResponse {
-  data: FaqItem[];
-  pagination: {
-    total: number;
-    limit: number;
-    offset: number;
-    hasMore: boolean;
-  };
-  meta?: {
-    timestamp: string;
-    endpoint: string;
-  };
+// ─── Pagination ───────────────────────────────────────────────────────────────
+
+export interface Pagination {
+  total: number;
+  limit: number;
+  offset: number;
+  hasMore: boolean;
+}
+
+// ─── Meta ─────────────────────────────────────────────────────────────────────
+
+export interface ApiMeta {
+  timestamp: string; // ISO 8601 datetime string
+  endpoint: string;
+}
+
+// ─── API Response ─────────────────────────────────────────────────────────────
+
+export interface FaqsApiResponse {
+  data: Faq[];
+  pagination: Pagination;
+  meta: ApiMeta;
 }
