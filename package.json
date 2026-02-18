@@ -1,10 +1,14 @@
 {
-  "name": "whatsapp-chatbot",
+  "name": "programmes-api",
   "version": "1.0.0",
-  "description": "CodeTribe Academy Learner Support WhatsApp Bot",
   "main": "dist/server.js",
+  "type": "commonjs",
   "scripts": {
+<<<<<<< HEAD
     "dev": "nodemon --watch src/**/* --exec \"npx ts-node\" src/server.ts",
+=======
+    "dev": "nodemon --watch 'src/**/*' --exec 'ts-node' src/server.ts",
+>>>>>>> 3a63e684efa5989ffa65335b19a7f2fbe87ecb98
     "build": "tsc",
     "start": "node dist/server.js",
     "test:integration": "npx ts-node test-integration.ts",
@@ -14,22 +18,21 @@
     "test:bot:quick": "npx ts-node test-bot-quick.ts",
     "test:bot:interactive": "npx ts-node test-bot-interactive.ts"
   },
-  "keywords": ["whatsapp", "chatbot", "codetribe"],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "dotenv": "^16.3.1",
-    "axios": "^1.6.2",
-    "ollama": "^0.5.0",
-    "@vonage/messages": "^1.23.0",
-    "@vonage/server-sdk": "^3.26.0"
+    "@vonage/auth": "^1.14.0",
+    "@vonage/server-sdk": "^3.26.0",
+    "axios": "^1.13.5",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "ollama": "^0.6.3",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/express": "^5.0.6",
-    "@types/node": "^20.10.5",
+    "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.9.3"
   }
 }
