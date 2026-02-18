@@ -79,27 +79,36 @@ export class VonageService {
         };
       }
 
-      // Fallback for different formats
+      // Try alternative format
       if (body.from && body.message) {
+        const fromValue = typeof body.from === 'string' ? body.from : body.from.number;
+        const messageValue = typeof body.message === 'string' 
+          ? body.message 
+          : body.message.text || body.message.content?.text;
+        
+        if (!fromValue || !messageValue) {
+          throw new Error('Invalid message format: missing from or message field');
+        }
+        
         return {
-          from: typeof body.from === 'string' ? body.from : body.from.number,
-          message: typeof body.message === 'string' ? body.message : body.message.text || body.message.content?.text,
+          from: fromValue,
+          message: messageValue,
           messageId: body.message_uuid || body.messageId || '',
           timestamp: body.timestamp || new Date().toISOString(),
         };
       }
 
-      return null;
-    } catch (error) {
+      throw new Error('Invalid webhook payload: missing required fields (from, message)');
+    } catch (error: any) {
       console.error('Error parsing Vonage message:', error);
-      return null;
+      throw new Error(`Failed to parse Vonage message: ${error.message}`);
     }
   }
 
   /**
    * Send a WhatsApp message via Vonage API
    */
-  async sendMessage(to: string, text: string): Promise<{ success: boolean; messageId?: string; error?: string }> {
+  async sendMessage(to: string, text: string): Promise<{ messageId: string }> {
     try {
       if (!this.apiKey || !this.apiSecret) {
         throw new Error('Vonage API credentials not configured');
@@ -123,15 +132,15 @@ export class VonageService {
       const response = await this.client.post('', request);
 
       return {
-        success: true,
         messageId: response.data.message_uuid,
       };
     } catch (error: any) {
       console.error('Error sending message via Vonage:', error);
-      return {
-        success: false,
-        error: error.response?.data?.detail || error.message || 'Failed to send message',
-      };
+      const errorMessage = error.response?.data?.detail || error.message;
+      if (!errorMessage) {
+        throw new Error('Failed to send message via Vonage: Unknown error');
+      }
+      throw new Error(`Failed to send message via Vonage: ${errorMessage}`);
     }
   }
 

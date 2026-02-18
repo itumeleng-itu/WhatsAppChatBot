@@ -1,4 +1,8 @@
 import express from 'express';
+import 'dotenv/config';
+import whatsappRoutes from './routes/whatsapp.routes';
+import mlabRoutes from './routes/mlab.routes';
+import { BusinessApiService } from './services/business-api.service';
 import programmesRouter from './routes/programmes.routes';
 import faqsRouter from './routes/faq.routes';
 import dotenv from 'dotenv';

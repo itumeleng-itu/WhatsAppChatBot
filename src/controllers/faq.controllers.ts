@@ -17,8 +17,11 @@ export const getFaq = async (req: Request, res: Response) => {
     }
 
     res.json(faq);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Unable to load FAQ' });
+  } catch (error: any) {
+    console.error('Error fetching FAQ:', error);
+    res.status(500).json({
+      error: 'Failed to load FAQ',
+      message: error?.message || 'Unknown error',
+    });
   }
 };

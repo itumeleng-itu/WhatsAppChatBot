@@ -109,12 +109,17 @@ export class QueryLogger {
    * Get logs for a specific date
    */
   async getLogs(logType: string, date: string): Promise<any[]> {
+    const logFile = path.join(this.logDir, `${logType}-${date}.json`);
     try {
-      const logFile = path.join(this.logDir, `${logType}-${date}.json`);
       const data = await fs.readFile(logFile, 'utf-8');
       return JSON.parse(data);
-    } catch (error) {
-      return [];
+    } catch (error: any) {
+      if (error.code === 'ENOENT') {
+        // File doesn't exist yet (no logs for this date) - return empty array
+        return [];
+      }
+      // Real error (permissions, corruption, etc.) - throw
+      throw new Error(`Failed to read log file ${logFile}: ${error.message}`);
     }
   }
 

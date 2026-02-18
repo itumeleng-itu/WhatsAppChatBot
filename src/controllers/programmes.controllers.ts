@@ -40,8 +40,11 @@ export const getProgrammes = async (req: Request, res: Response) => {
         total: data.length,
       },
     });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Unable to load programmes' });
+  } catch (error: any) {
+    console.error('Error fetching programmes:', error);
+    res.status(500).json({
+      error: 'Failed to load programmes',
+      message: error?.message || 'Unknown error',
+    });
   }
 };

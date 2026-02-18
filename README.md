@@ -9,6 +9,11 @@ A WhatsApp-based chatbot that provides instant, consistent learner support for C
 - 🚫 **Scope Enforcement**: Strict configuration prevents out-of-scope responses
 - 📊 **Query Logging**: Comprehensive logging for QA purposes
 - 📱 **Vonage Integration**: WhatsApp messaging via Vonage API
+- ⚡ **Performance Optimized**: Caching, connection pooling, and intelligent FAQ ranking
+- 🔄 **Retry Logic**: Automatic retry with exponential backoff for failed API calls
+- 📈 **Rate Limiting Awareness**: Respects API rate limits automatically
+- 🎯 **Smart Query Understanding**: Category-based search and improved FAQ matching
+- ⏱️ **Request Timeouts**: Prevents hanging requests with configurable timeouts
 
 ## Project Structure
 
@@ -55,12 +60,26 @@ npm install
 cp .env.example .env
 ```
 
-4. Update `.env` with your configuration:
+4. Update `.env` with your configuration (see `.env.example` for all options):
 ```env
 PORT=3000
+
+# Ollama Configuration
 OLLAMA_URL=http://localhost:11434
-OLLAMA_MODEL=llama3.2
-BUSINESS_API_URL=http://your-business-api-url/api
+OLLAMA_MODEL=llama3.2:latest
+OLLAMA_MAX_TOKENS=1000
+OLLAMA_REQUEST_TIMEOUT_MS=120000
+
+# Business API Configuration
+BUSINESS_API_URL=https://mlab-knowledge-api.vercel.app/api
+PROGRAM_ID=your_program_id
+API_SCOPE=codetribe
+API_TIMEOUT_MS=10000
+API_CACHE_ENABLED=true
+API_CACHE_TTL_MS=600000
+API_PREWARM_CACHE=true
+API_RATE_LIMIT_AWARE=true
+API_LOGGING_ENABLED=true
 
 # Vonage API Configuration
 VONAGE_API_KEY=your_vonage_api_key
@@ -120,6 +139,13 @@ Body: { learnerId, query }
 ### Health Check
 ```
 GET /api/whatsapp/health
+GET /api/mlab/health
+```
+
+### API Test & Monitoring
+```
+GET /api/mlab/test          # Test Business API connectivity
+GET /api/mlab/health        # API health check
 ```
 
 ### Categories
@@ -145,6 +171,24 @@ npm run dev
 npm run build
 npm start
 ```
+
+### Testing
+
+Run integration tests:
+```bash
+npm run test:integration
+```
+
+Other test scripts:
+```bash
+npm run test:cache          # Test caching and pagination
+npm run test:speed           # Test performance improvements
+npm run test:bot             # Test bot response times
+npm run test:bot:quick       # Quick bot response test
+npm run test:bot:interactive # Interactive bot testing
+```
+
+See `CHANGELOG.md` for detailed information about all changes and improvements.
 
 ### Testing the Chat
 
@@ -198,12 +242,24 @@ All queries and responses are logged to `./logs/`:
 
 ## Business API Integration
 
-The bot expects a business API with the following endpoints:
+The bot integrates with the mLab Knowledge API (`https://mlab-knowledge-api.vercel.app/api`) with the following endpoints:
 
-- `GET /api/faqs` - Get all FAQs
-- `GET /api/faqs/category/:category` - Get FAQs by category
-- `GET /api/faqs/search?q=query` - Search FAQs
-- `GET /api/faqs/categories` - Get all categories
+- `GET /faqs` - Get all FAQs (supports `scope`, `q`, `category`, `limit`, `offset`)
+- `GET /faqs?category=category` - Get FAQs by category
+- `GET /faqs?q=query` - Search FAQs
+- `GET /programmes/:id` - Get programme details
+- `GET /eligibility/:id` - Get eligibility information
+- `GET /application-process/:id` - Get application process
+- `GET /curriculum/:id` - Get curriculum information
+- And more...
+
+### API Features
+- ✅ **Retry Logic**: Automatic retry with exponential backoff
+- ✅ **Caching**: In-memory cache with TTL and background refresh
+- ✅ **Pagination**: Support for `limit` and `offset` parameters
+- ✅ **Rate Limiting**: Automatic rate limit detection and respect
+- ✅ **Connection Pooling**: Reuses connections for better performance
+- ✅ **Request Logging**: Detailed logging of all API calls
 
 Expected FAQ format:
 ```json
@@ -218,11 +274,31 @@ Expected FAQ format:
 
 ## Model Configuration Best Practices
 
-1. **Temperature**: Set to 0.7 for balanced creativity and consistency
-2. **Max Tokens**: Limit to 500 for WhatsApp-friendly messages
-3. **System Prompt**: Keep strict and clear about scope
-4. **Context**: Always provide relevant FAQ data as context
-5. **Monitoring**: Regularly review logs to ensure scope compliance
+1. **Temperature**: Set to 0.3 for more deterministic, factual responses
+2. **Max Tokens**: Default 1000 for complete responses (configurable via `OLLAMA_MAX_TOKENS`)
+3. **System Prompt**: Keep strict and clear about scope (see `src/config/model.config.ts`)
+4. **Context**: Top 5 most relevant FAQs are provided as context
+5. **Timeout**: Default 120s for complex queries (configurable via `OLLAMA_REQUEST_TIMEOUT_MS`)
+6. **Monitoring**: Regularly review logs to ensure scope compliance
+
+## Performance Optimizations
+
+### Caching
+- In-memory cache with configurable TTL (default: 10 minutes)
+- Pre-warming on startup for frequently accessed data
+- Background refresh to keep cache up-to-date
+- Reduces API calls by ~80% for cached data
+
+### FAQ Ranking
+- Intelligent ranking by relevance score
+- Category-based matching for better results
+- Partial word matching for plurals/similar words
+- Limits context to top 5 FAQs for faster processing
+
+### Connection Management
+- HTTP/HTTPS connection pooling
+- Keep-alive connections for reuse
+- Configurable timeouts to prevent hanging
 
 ## Troubleshooting
 
