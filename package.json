@@ -4,11 +4,7 @@
   "description": "CodeTribe Academy Learner Support WhatsApp Bot",
   "main": "dist/server.js",
   "scripts": {
-<<<<<<< Updated upstream
-    "dev": "nodemon --exec ts-node src/server.ts",
-=======
     "dev": "nodemon --watch src/**/* --exec \"npx ts-node\" src/server.ts",
->>>>>>> Stashed changes
     "build": "tsc",
     "start": "node dist/server.js",
     "test:integration": "npx ts-node test-integration.ts",

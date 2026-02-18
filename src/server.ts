@@ -1,24 +1,11 @@
 import express from 'express';
-<<<<<<< Updated upstream
 import 'dotenv/config';
 import whatsappRoutes from './routes/whatsapp.routes';
 import mlabRoutes from './routes/mlab.routes';
+import { BusinessApiService } from './services/business-api.service';
 
 const app = express();
 const PORT: number = Number(process.env.PORT) || 3000;
-=======
-import programmesRouter from './routes/programmes.routes';
-import faqsRouter from './routes/faq.routes';
-import mlabRouter from './routes/mlab.routes';
-import whatsappRouter from './routes/whatsapp.routes';
-import dotenv from 'dotenv';
-import { BusinessApiService } from './services/business-api.service';
-
-dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 3000;
->>>>>>> Stashed changes
 
 // Middleware
 app.use(express.json());
@@ -28,7 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/whatsapp', whatsappRoutes);
 app.use('/api/mlab', mlabRoutes);
 
-<<<<<<< Updated upstream
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
@@ -41,27 +27,13 @@ app.get('/', (req, res) => {
       webhook: '/api/whatsapp/webhook',
       categories: '/api/whatsapp/categories',
       logs: '/api/mlab/logs',
+      mlabHealth: '/api/mlab/health',
+      mlabTest: '/api/mlab/api/test',
     },
   });
 });
 
-app.listen(PORT, (): void => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📱 Vonage WhatsApp webhook: http://localhost:${PORT}/api/whatsapp/webhook`);
-  console.log(`💬 Chat endpoint: http://localhost:${PORT}/api/whatsapp/chat`);
-  console.log(`📊 Logs endpoint: http://localhost:${PORT}/api/mlab/logs`);
-});
-=======
-//? API endpoint for FAQs
-app.use('/api/faqs', faqsRouter);
-
-//? API endpoint for mLab (logs, API test, health)
-app.use('/api/mlab', mlabRouter);
-
-//? API endpoint for WhatsApp webhook and chat
-app.use('/api/whatsapp', whatsappRouter);
-
-//* 404 handler
+// 404 handler
 app.use((_req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
@@ -112,8 +84,11 @@ async function startServer() {
   // Initialize API service (verify connectivity and pre-warm cache)
   await initializeApiService();
   
-  app.listen(PORT, () => {
+  app.listen(PORT, (): void => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📱 Vonage WhatsApp webhook: http://localhost:${PORT}/api/whatsapp/webhook`);
+    console.log(`💬 Chat endpoint: http://localhost:${PORT}/api/whatsapp/chat`);
+    console.log(`📊 Logs endpoint: http://localhost:${PORT}/api/mlab/logs`);
     console.log(`📊 Health check available at http://localhost:${PORT}/api/mlab/health`);
     console.log(`🔧 API test available at http://localhost:${PORT}/api/mlab/api/test`);
   });
@@ -123,4 +98,3 @@ startServer().catch((error) => {
   console.error('❌ Failed to start server:', error);
   process.exit(1);
 });
->>>>>>> Stashed changes
