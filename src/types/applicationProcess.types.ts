@@ -1,22 +1,14 @@
-// ─── Enums ────────────────────────────────────────────────────────────────────
-
-export type CriterionType =
-  | "age"
-  | "citizenship"
-  | "qualification"
-  | "employment_status"
-  | "financial"
-  | "other";
-
 // ─── Core Entity ──────────────────────────────────────────────────────────────
 
-export interface EligibilityCriterion {
+export interface ApplicationStep {
   id: string;
   programme_id: string;
-  criterion_type: CriterionType;
-  requirement_text: string;
-  is_mandatory: boolean;
-  sort_order: number;
+  step_number: number;
+  step_name: string;
+  step_description: string;
+  required_documents: string[] | null; // null = no documents required for this step
+  deadline_info: string | null;
+  estimated_duration: string;
   created_at: string; // ISO 8601 datetime string
   updated_at: string; // ISO 8601 datetime string
 }
@@ -39,8 +31,8 @@ export interface ApiMeta {
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 
-export interface EligibilityApiResponse {
-  data: EligibilityCriterion[];
+export interface ApplicationProcessApiResponse {
+  data: ApplicationStep[];
   pagination: Pagination;
   meta: ApiMeta;
 }

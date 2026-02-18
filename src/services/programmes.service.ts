@@ -1,4 +1,4 @@
-import { ProgrammeResponse } from "../types/programmes.types";
+import { ProgrammeResponse } from "../types/schedules.types";
 
 const EXTERNAL_API =process.env.CODETRIBE_PROGRAMMES_API!;
 

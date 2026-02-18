@@ -1,22 +1,32 @@
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
-export type CriterionType =
-  | "age"
-  | "citizenship"
-  | "qualification"
-  | "employment_status"
-  | "financial"
-  | "other";
+export type EventType =
+  | "bootcamp"
+  | "class_hours"
+  | "graduation";
+
+export type DayOfWeek =
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday";
 
 // ─── Core Entity ──────────────────────────────────────────────────────────────
 
-export interface EligibilityCriterion {
+export interface Schedule {
   id: string;
   programme_id: string;
-  criterion_type: CriterionType;
-  requirement_text: string;
-  is_mandatory: boolean;
-  sort_order: number;
+  event_type: EventType;
+  description: string;
+  start_date: string; // ISO 8601 date string (YYYY-MM-DD)
+  end_date: string;   // ISO 8601 date string (YYYY-MM-DD)
+  days_of_week: DayOfWeek[];
+  start_time: string; // Time string (HH:MM:SS)
+  end_time: string;   // Time string (HH:MM:SS)
+  is_recurring: boolean;
   created_at: string; // ISO 8601 datetime string
   updated_at: string; // ISO 8601 datetime string
 }
@@ -39,8 +49,8 @@ export interface ApiMeta {
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 
-export interface EligibilityApiResponse {
-  data: EligibilityCriterion[];
+export interface SchedulesApiResponse {
+  data: Schedule[];
   pagination: Pagination;
   meta: ApiMeta;
 }

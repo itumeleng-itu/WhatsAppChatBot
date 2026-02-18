@@ -1,22 +1,28 @@
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
-export type CriterionType =
-  | "age"
-  | "citizenship"
-  | "qualification"
-  | "employment_status"
-  | "financial"
+export type PolicyCategory =
+  | "assessment"
+  | "attendance"
+  | "conduct"
+  | "confidentiality"
+  | "equipment"
+  | "internet"
+  | "termination"
   | "other";
+
+export type PolicyAppliesTo = "all_programmes" | "CodeTribe Academy";
 
 // ─── Core Entity ──────────────────────────────────────────────────────────────
 
-export interface EligibilityCriterion {
+export interface Policy {
   id: string;
-  programme_id: string;
-  criterion_type: CriterionType;
-  requirement_text: string;
+  policy_category: PolicyCategory;
+  policy_name: string;
+  policy_description: string;
+  applies_to: PolicyAppliesTo;
   is_mandatory: boolean;
-  sort_order: number;
+  consequences: string | null;
+  source_document: string;
   created_at: string; // ISO 8601 datetime string
   updated_at: string; // ISO 8601 datetime string
 }
@@ -39,8 +45,8 @@ export interface ApiMeta {
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 
-export interface EligibilityApiResponse {
-  data: EligibilityCriterion[];
+export interface PoliciesApiResponse {
+  data: Policy[];
   pagination: Pagination;
   meta: ApiMeta;
 }
