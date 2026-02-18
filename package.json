@@ -4,9 +4,19 @@
   "description": "CodeTribe Academy Learner Support WhatsApp Bot",
   "main": "dist/server.js",
   "scripts": {
+<<<<<<< Updated upstream
     "dev": "nodemon --exec ts-node src/server.ts",
+=======
+    "dev": "nodemon --watch src/**/* --exec \"npx ts-node\" src/server.ts",
+>>>>>>> Stashed changes
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test:integration": "npx ts-node test-integration.ts",
+    "test:cache": "npx ts-node test-cache-pagination.ts",
+    "test:speed": "npx ts-node test-speed.ts",
+    "test:bot": "npx ts-node test-bot-response.ts",
+    "test:bot:quick": "npx ts-node test-bot-quick.ts",
+    "test:bot:interactive": "npx ts-node test-bot-interactive.ts"
   },
   "keywords": ["whatsapp", "chatbot", "codetribe"],
   "author": "",

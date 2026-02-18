@@ -4,6 +4,7 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "esModuleInterop": true,
+<<<<<<< Updated upstream
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -14,3 +15,20 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
+=======
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "test-*.ts",
+    "*.test.ts"
+  ]
+}
+>>>>>>> Stashed changes
