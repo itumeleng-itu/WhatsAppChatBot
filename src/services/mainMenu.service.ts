@@ -5,7 +5,8 @@ import {
     fetchCurriculum,
     fetchSchedule,
     fetchPolicies,
-    fetchLocations
+    fetchLocations,
+    fetchFaqs
 } from './faq.services';
 
 
@@ -173,10 +174,59 @@ export const WhatsAppService = {
     async sendPoliciesInfo(to:string){
         try {
             const data = await fetchPolicies();
-            await sendMessage(to, `*Policies*\n\n${formatApiData(data)}`);
+            await sendMessage(to, `⚖️ *Policies*\n\n${formatApiData(data)}`);
         }
         catch(err){
             console.error(`Error sending policies:`,err)
         }
-    } 
+    },
+
+    async sendFaqInfo(to:string) {
+        try{
+            const data = await fetchFaqs();
+            await sendMessage(to, `❔ *FAQs*\n\n${formatApiData(data)}`)
+        }catch(err){
+            console.error('Error sending Faqs', err)
+        }
+    },
+
+    async sendApplicationInfo(to:string){
+        try{
+            const data = await fetchApplicationProcess();
+            await sendMessage(to, `📃 *Application Process*\n\n${formatApiData(data)}`)
+        }
+        catch(err){
+            console.error('Error sending application information', err)
+        }
+        
+    },
+
+    async sendCurriculumInformation(to:string) {
+        try{
+            const data = await fetchCurriculum();
+            await sendMessage(to, `📚 *Curriculum*\n\n${formatApiData(data)}`)
+        }
+        catch(err){
+            console.error('Error sending curriculum information', err)
+        }
+    },
+
+    async sendScheduleInformation(to:string) {
+        try{
+            const data = await fetchSchedule();
+            await sendMessage(to, `🗓️ *Schedule*\n\n${formatApiData(data)}`)
+        }catch(err){
+            console.error('Error sending schedule information', err)
+        }
+    },
+
+    async sendLocations(to:string){
+        try{
+            const data = await fetchLocations();
+            await sendMessage(to, `🌍 *Locations*\n\n${formatApiData(data)}`);
+        }
+        catch(err){
+            console.error('Error sending locations', err)
+        }
+    }
 }
