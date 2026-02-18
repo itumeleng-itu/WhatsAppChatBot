@@ -20,7 +20,7 @@ export interface EligibilityItem {
   updated_at?: string;
 }
 
-//* API response 
+//* API response
 export interface EligibilityResponse {
   data: EligibilityItem[];
   pagination: {
