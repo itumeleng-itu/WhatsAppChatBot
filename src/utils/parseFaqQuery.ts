@@ -1,19 +1,27 @@
-import { faqQuery } from '../types/faq.types';
+import { parsePaginationParams, scalar, type RawParams } from './sharedfile-utility/parseQuery.sharedFile';
+import type { faqQuery, faqScope } from '../types/faq.types';
 
-export const parseFaqQuery = (
-  query: Record<string, string | undefined>
-): faqQuery => {
-  const limit = query.limit ? Number(query.limit) : 20;
-  const offset = query.offset ? Number(query.offset) : 0;
+const VALID_FAQ_SCOPES = new Set<string>(['mlab', 'codetribe']);
 
-  return {
-    q: query.q ?? '',
-    scope: (query.scope as 'mlab' | 'codetribe') ?? 'mlab',
-    category: query.category,
-    source: query.source,
-    limit: limit > 100 ? 100 : limit,
-    offset,
-    sort: query.sort,
-    order: (query.order as 'asc' | 'desc') ?? 'asc',
+export function parseFaqQueryParams(params: RawParams): faqQuery | null {
+  //? q and scope are required — return null if either is missing/invalid
+  const q = scalar(params.q);
+  if (!q || q.trim() === '') return null;
+
+  const rawScope = scalar(params.scope);
+  if (!rawScope || !VALID_FAQ_SCOPES.has(rawScope)) return null;
+
+  const result: faqQuery = {
+    ...parsePaginationParams(params),
+    q: q.trim(),
+    scope: rawScope as faqScope,
   };
-};
+
+  const rawCategory = scalar(params.category);
+  if (rawCategory !== undefined) result.category = rawCategory;
+
+  const rawSource = scalar(params.source);
+  if (rawSource !== undefined) result.source = rawSource;
+
+  return result;
+}
