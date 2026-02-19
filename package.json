@@ -4,19 +4,34 @@
   "main": "dist/server.js",
   "type": "commonjs",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*' --exec 'ts-node' src/server.ts",
+    "dev": "nodemon --watch \"src/**/*\" --exec \"ts-node\" src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "jest --runInBand",
+    "test:unit": "jest tests/unit --runInBand",
+    "test:integration": "jest tests/integration --runInBand",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --runInBand"
   },
   "dependencies": {
+    "@vonage/auth": "^1.14.0",
+    "@vonage/server-sdk": "^3.26.0",
+    "axios": "^1.13.5",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "ollama": "^0.6.3",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/supertest": "^6.0.3",
     "@types/uuid": "^10.0.0",
+    "jest": "^30.2.0",
+    "jest-mock-extended": "^4.0.0",
     "nodemon": "^3.1.11",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

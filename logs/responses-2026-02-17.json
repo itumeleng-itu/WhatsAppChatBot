@@ -1,0 +1,152 @@
+[
+  {
+    "id": "1771335114173-gwuh0phi5",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "response": "Artificial Intelligence",
+    "timestamp": "2026-02-17T13:31:54.173Z",
+    "confidence": 0.9
+  },
+  {
+    "id": "1771335114176-dl4a2f0ve",
+    "learnerId": "learner2",
+    "query": "What is ML?",
+    "response": "Machine Learning",
+    "timestamp": "2026-02-17T13:31:54.176Z",
+    "confidence": 0.75
+  },
+  {
+    "id": "1771335114182-ts0l5lcu4",
+    "learnerId": "learner3",
+    "query": "Explain NLP",
+    "response": "Natural Language Processing",
+    "timestamp": "2026-02-17T13:31:54.182Z",
+    "confidence": 0.8,
+    "category": "AI"
+  },
+  {
+    "id": "1771335207910-8tpg4h41u",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "response": "Artificial Intelligence",
+    "timestamp": "2026-02-17T13:33:27.910Z",
+    "confidence": 0.9
+  },
+  {
+    "id": "1771335207915-54sxk3714",
+    "learnerId": "learner2",
+    "query": "What is ML?",
+    "response": "Machine Learning",
+    "timestamp": "2026-02-17T13:33:27.915Z",
+    "confidence": 0.75
+  },
+  {
+    "id": "1771335207923-jyd1ywikf",
+    "learnerId": "learner3",
+    "query": "Explain NLP",
+    "response": "Natural Language Processing",
+    "timestamp": "2026-02-17T13:33:27.923Z",
+    "confidence": 0.8,
+    "category": "AI"
+  },
+  {
+    "id": "1771335697092-m5rwl4450",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "response": "Artificial Intelligence",
+    "timestamp": "2026-02-17T13:41:37.092Z",
+    "confidence": 0.9
+  },
+  {
+    "id": "1771335697096-og7rr0vbu",
+    "learnerId": "learner2",
+    "query": "What is ML?",
+    "response": "Machine Learning",
+    "timestamp": "2026-02-17T13:41:37.096Z",
+    "confidence": 0.75
+  },
+  {
+    "id": "1771335697105-ygn51bwdm",
+    "learnerId": "learner3",
+    "query": "Explain NLP",
+    "response": "Natural Language Processing",
+    "timestamp": "2026-02-17T13:41:37.105Z",
+    "confidence": 0.8,
+    "category": "AI"
+  },
+  {
+    "id": "1771336200180-7u1a370nb",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "response": "Artificial Intelligence",
+    "timestamp": "2026-02-17T13:50:00.180Z",
+    "confidence": 0.9
+  },
+  {
+    "id": "1771336200185-inwofs59i",
+    "learnerId": "learner2",
+    "query": "What is ML?",
+    "response": "Machine Learning",
+    "timestamp": "2026-02-17T13:50:00.185Z",
+    "confidence": 0.75
+  },
+  {
+    "id": "1771336200191-imdgcih5g",
+    "learnerId": "learner3",
+    "query": "Explain NLP",
+    "response": "Natural Language Processing",
+    "timestamp": "2026-02-17T13:50:00.191Z",
+    "confidence": 0.8,
+    "category": "AI"
+  },
+  {
+    "id": "1771336315557-liuoh9a2v",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "response": "Artificial Intelligence",
+    "timestamp": "2026-02-17T13:51:55.558Z",
+    "confidence": 0.9
+  },
+  {
+    "id": "1771336315561-1ygdtut27",
+    "learnerId": "learner2",
+    "query": "What is ML?",
+    "response": "Machine Learning",
+    "timestamp": "2026-02-17T13:51:55.561Z",
+    "confidence": 0.75
+  },
+  {
+    "id": "1771336315567-snaz5u4ue",
+    "learnerId": "learner3",
+    "query": "Explain NLP",
+    "response": "Natural Language Processing",
+    "timestamp": "2026-02-17T13:51:55.568Z",
+    "confidence": 0.8,
+    "category": "AI"
+  },
+  {
+    "id": "1771336522854-c7lb036xx",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "response": "Artificial Intelligence",
+    "timestamp": "2026-02-17T13:55:22.854Z",
+    "confidence": 0.9
+  },
+  {
+    "id": "1771336522859-yp3ueg8bc",
+    "learnerId": "learner2",
+    "query": "What is ML?",
+    "response": "Machine Learning",
+    "timestamp": "2026-02-17T13:55:22.859Z",
+    "confidence": 0.75
+  },
+  {
+    "id": "1771336522865-g0115syxg",
+    "learnerId": "learner3",
+    "query": "Explain NLP",
+    "response": "Natural Language Processing",
+    "timestamp": "2026-02-17T13:55:22.865Z",
+    "confidence": 0.8,
+    "category": "AI"
+  }
+]
