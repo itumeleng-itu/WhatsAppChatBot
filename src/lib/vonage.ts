@@ -8,6 +8,8 @@ const vonage = new Vonage(new Auth({
   apiSecret: process.env.VONAGE_API_SECRET,
   applicationId: process.env.VONAGE_APP_ID,
   privateKey: path.join(process.cwd(), 'private.key')
-}));
+}), {
+  apiHost: process.env.VONAGE_API_URL ? new URL(process.env.VONAGE_API_URL).hostname : undefined
+});
 
 export default vonage;

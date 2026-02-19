@@ -1,6 +1,5 @@
-import { parsePaginationParams, type RawParams } from './sharedfile-utility/parseQuery.sharedFile';
-import type { ApplicationStep } from '../types/applicationProcess.types';
+import { parsePaginationParams, type RawParams, type BasePaginationQuery } from './sharedfile-utility/parseQuery.sharedFile';
 
-export function parseApplicationStepQueryParams(params: RawParams): ApplicationStep {
+export function parseApplicationStepQueryParams(params: RawParams): BasePaginationQuery {
   return parsePaginationParams(params);
 }

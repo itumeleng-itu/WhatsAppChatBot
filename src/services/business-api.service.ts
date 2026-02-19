@@ -208,16 +208,16 @@ export class BusinessApiService {
   private maxRetries: number;
   private retryDelay: number; // Initial delay in milliseconds
   private timeout: number;
-  
+
   // Caching
   private cache: Map<string, CacheEntry<any>> = new Map();
   private cacheEnabled: boolean;
   private cacheTTL: number; // Time to live in milliseconds
-  
+
   // Rate limiting awareness
   private rateLimitInfo: RateLimitInfo | null = null;
   private rateLimitEnabled: boolean;
-  
+
   // Logging
   private loggingEnabled: boolean;
 
@@ -228,17 +228,17 @@ export class BusinessApiService {
     this.maxRetries = parseInt(process.env.API_MAX_RETRIES || '3', 10);
     this.retryDelay = parseInt(process.env.API_RETRY_DELAY_MS || '1000', 10);
     this.timeout = parseInt(process.env.API_TIMEOUT_MS || '10000', 10);
-    
+
     // Caching configuration
     this.cacheEnabled = process.env.API_CACHE_ENABLED !== 'false';
     this.cacheTTL = parseInt(process.env.API_CACHE_TTL_MS || '600000', 10); // Default 10 minutes (increased for better performance)
-    
+
     // Rate limiting configuration
     this.rateLimitEnabled = process.env.API_RATE_LIMIT_AWARE !== 'false';
-    
+
     // Logging configuration
     this.loggingEnabled = process.env.API_LOGGING_ENABLED !== 'false';
-    
+
     this.client = axios.create({
       baseURL: this.apiUrl,
       timeout: this.timeout,
@@ -259,11 +259,11 @@ export class BusinessApiService {
         maxFreeSockets: 10,
       }),
     });
-    
+
     // Add response interceptor for rate limiting and logging
     this.setupInterceptors();
   }
-  
+
   /**
    * Setup axios interceptors for logging and rate limit tracking
    */
@@ -288,7 +288,7 @@ export class BusinessApiService {
         return Promise.reject(error);
       }
     );
-    
+
     // Response interceptor for rate limiting and logging
     this.client.interceptors.response.use(
       (response: AxiosResponse) => {
@@ -300,26 +300,26 @@ export class BusinessApiService {
             timestamp: new Date().toISOString(),
           });
         }
-        
+
         // Track rate limit headers if present
         if (this.rateLimitEnabled && response.headers) {
           const remaining = response.headers['x-ratelimit-remaining'];
           const reset = response.headers['x-ratelimit-reset'];
           const limit = response.headers['x-ratelimit-limit'];
-          
+
           if (remaining !== undefined) {
             this.rateLimitInfo = {
               remaining: parseInt(remaining, 10),
               resetAt: reset ? parseInt(reset, 10) : Date.now() + 60000, // Default 1 minute
               limit: limit ? parseInt(limit, 10) : 100, // Default limit
             };
-            
+
             if (this.rateLimitInfo.remaining < 10) {
               console.warn(`[Rate Limit Warning] Only ${this.rateLimitInfo.remaining} requests remaining`);
             }
           }
         }
-        
+
         return response;
       },
       (error) => {
@@ -373,14 +373,14 @@ export class BusinessApiService {
     operation: string
   ): Promise<T> {
     let lastError: any;
-    
+
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
         const response = await apiCall();
         return response;
       } catch (error: any) {
         lastError = error;
-        
+
         // Don't retry if it's a client error (4xx) or if we've exhausted retries
         if (!this.shouldRetry(error) || attempt === this.maxRetries) {
           throw error;
@@ -392,7 +392,7 @@ export class BusinessApiService {
           `API call failed (${operation}), attempt ${attempt + 1}/${this.maxRetries + 1}. ` +
           `Retrying in ${delay}ms...`
         );
-        
+
         await this.sleep(delay);
       }
     }
@@ -417,7 +417,7 @@ export class BusinessApiService {
     }
 
     const apiResponse = response.data as MLabApiResponse<T>;
-    
+
     // Validate required fields
     if (!Array.isArray(apiResponse.data)) {
       throw new Error('Invalid API response: data field is not an array');
@@ -560,7 +560,7 @@ export class BusinessApiService {
 
     for (const [key, entry] of this.cache.entries()) {
       const age = now - entry.timestamp;
-      
+
       // If cache entry is 80% expired, refresh it in background
       if (age >= refreshThreshold) {
         // Extract operation and params from cache key
@@ -646,7 +646,7 @@ export class BusinessApiService {
    */
   async getAllFAQs(limit?: number, offset?: number): Promise<{ data: FAQData[]; pagination: Pagination }> {
     const cacheKey = this.getCacheKey('getAllFAQs', { limit, offset });
-    
+
     // Check cache first
     const cached = this.getFromCache<{ data: FAQData[]; pagination: Pagination }>(cacheKey);
     if (cached) {
@@ -655,11 +655,11 @@ export class BusinessApiService {
 
     try {
       await this.checkRateLimit();
-      
+
       const params: any = {
         scope: this.scope,
       };
-      
+
       if (limit !== undefined) {
         params.limit = limit;
       }
@@ -671,16 +671,16 @@ export class BusinessApiService {
         () => this.client.get<MLabApiResponse<FAQData>>('/faqs', { params }),
         'getAllFAQs'
       );
-      
+
       const validatedResponse = this.validateResponse<FAQData>(response);
       const result = {
         data: validatedResponse.data || [],
         pagination: validatedResponse.pagination,
       };
-      
+
       // Cache the result
       this.setCache(cacheKey, result);
-      
+
       return result;
     } catch (error: any) {
       const errorMessage = this.getErrorMessage(error, 'Failed to fetch FAQ data');
@@ -704,15 +704,15 @@ export class BusinessApiService {
       }
       return `${defaultMessage}: HTTP ${error.response.status} - ${error.response.statusText}`;
     }
-    
+
     if (error.request) {
       return `${defaultMessage}: Network error - API is unreachable. Check your internet connection and API URL (${this.apiUrl})`;
     }
-    
+
     if (error.message) {
       return `${defaultMessage}: ${error.message}`;
     }
-    
+
     return defaultMessage;
   }
 
@@ -721,7 +721,7 @@ export class BusinessApiService {
    */
   async getFAQsByCategory(category: string, limit?: number, offset?: number): Promise<FAQData[]> {
     const cacheKey = this.getCacheKey('getFAQsByCategory', { category, limit, offset });
-    
+
     // Check cache first
     const cached = this.getFromCache<FAQData[]>(cacheKey);
     if (cached) {
@@ -730,12 +730,12 @@ export class BusinessApiService {
 
     try {
       await this.checkRateLimit();
-      
+
       const params: any = {
         scope: this.scope,
         category: category,
       };
-      
+
       if (limit !== undefined) {
         params.limit = limit;
       }
@@ -747,12 +747,12 @@ export class BusinessApiService {
         () => this.client.get<MLabApiResponse<FAQData>>(`/faqs`, { params }),
         `getFAQsByCategory(${category})`
       );
-      
+
       const result = this.handleResponse<FAQData>(response);
-      
+
       // Cache the result
       this.setCache(cacheKey, result);
-      
+
       return result;
     } catch (error: any) {
       const errorMessage = this.getErrorMessage(error, `Failed to fetch FAQs for category "${category}"`);
@@ -771,7 +771,7 @@ export class BusinessApiService {
    */
   async searchFAQs(query: string, limit?: number, offset?: number): Promise<FAQData[]> {
     const cacheKey = this.getCacheKey('searchFAQs', { query, limit, offset });
-    
+
     // Check cache first
     const cached = this.getFromCache<FAQData[]>(cacheKey);
     if (cached) {
@@ -780,12 +780,12 @@ export class BusinessApiService {
 
     try {
       await this.checkRateLimit();
-      
+
       const params: any = {
         scope: this.scope,
         q: query,
       };
-      
+
       if (limit !== undefined) {
         params.limit = limit;
       }
@@ -797,12 +797,12 @@ export class BusinessApiService {
         () => this.client.get<MLabApiResponse<FAQData>>(`/faqs`, { params }),
         `searchFAQs("${query}")`
       );
-      
+
       const result = this.handleResponse<FAQData>(response);
-      
+
       // Cache the result
       this.setCache(cacheKey, result);
-      
+
       return result;
     } catch (error: any) {
       const errorMessage = this.getErrorMessage(error, `Failed to search FAQs for query "${query}"`);
@@ -826,7 +826,7 @@ export class BusinessApiService {
    */
   async getCategories(): Promise<string[]> {
     const cacheKey = this.getCacheKey('getCategories');
-    
+
     // Check cache first
     const cached = this.getFromCache<string[]>(cacheKey);
     if (cached) {
@@ -837,14 +837,14 @@ export class BusinessApiService {
       // Fetch all FAQs and extract unique categories
       const result = await this.getAllFAQs();
       const faqs = result.data;
-      
+
       // Extract unique categories from FAQs
       const categories = Array.from(new Set(faqs.map(faq => faq.category).filter(Boolean)));
       const sortedCategories = categories.sort();
-      
+
       // Cache the result
       this.setCache(cacheKey, sortedCategories);
-      
+
       return sortedCategories;
     } catch (error: any) {
       const errorMessage = this.getErrorMessage(error, 'Failed to fetch categories');
@@ -874,7 +874,7 @@ export class BusinessApiService {
         }),
         `getProgrammeById(${id})`
       );
-      
+
       // Check for error structure
       const responseData = response.data;
       if (this.isApiError(responseData)) {
@@ -996,7 +996,7 @@ export class BusinessApiService {
       const params: any = {
         scope: this.scope,
       };
-      
+
       if (programmeId) {
         params.programme_id = programmeId;
       }
@@ -1070,7 +1070,7 @@ export class BusinessApiService {
         }),
         'getOverview'
       );
-      
+
       const responseData = response.data;
       if (this.isApiError(responseData)) {
         throw new Error(`API Error: ${responseData.message} (${responseData.statusCode})`);
@@ -1116,14 +1116,14 @@ export class BusinessApiService {
    */
   async verifyConnectionOnStartup(): Promise<void> {
     const connectionStatus = await this.testConnection();
-    
+
     if (!connectionStatus.connected) {
       throw new Error(
         `Business API connection verification failed: ${connectionStatus.error || 'Unknown error'}. ` +
         `API URL: ${connectionStatus.apiUrl}, Scope: ${connectionStatus.scope}`
       );
     }
-    
+
     console.log(
       `✅ Business API connection verified successfully ` +
       `(URL: ${connectionStatus.apiUrl}, Latency: ${connectionStatus.latency}ms)`
@@ -1142,7 +1142,7 @@ export class BusinessApiService {
     error?: string;
   }> {
     const startTime = Date.now();
-    
+
     try {
       // Try to fetch FAQs as a lightweight test endpoint
       // Using /faqs instead of /faqs/categories since categories endpoint doesn't exist
@@ -1155,9 +1155,9 @@ export class BusinessApiService {
         }),
         'testConnection'
       );
-      
+
       const latency = Date.now() - startTime;
-      
+
       return {
         connected: true,
         apiUrl: this.apiUrl,
@@ -1168,7 +1168,7 @@ export class BusinessApiService {
     } catch (error: any) {
       const latency = Date.now() - startTime;
       let errorMessage = 'Unknown error';
-      
+
       if (error.response) {
         const apiError = error.response.data as MLabApiError;
         errorMessage = apiError?.message || `HTTP ${error.response.status}`;
@@ -1177,7 +1177,7 @@ export class BusinessApiService {
       } else {
         errorMessage = error.message || 'Unknown error';
       }
-      
+
       return {
         connected: false,
         apiUrl: this.apiUrl,

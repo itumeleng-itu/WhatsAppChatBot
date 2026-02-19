@@ -2,79 +2,18 @@ import { Ollama } from 'ollama';
 import { BusinessApiService, FAQData } from './business-api.service';
 import { getSystemPrompt, getUserPromptTemplate } from '../config/model.config';
 
-interface FAQ {
-  id: string;
-  category: string;
-  question: string;
-  answer: string;
+interface OllamaConfig {
+  model: string;
+  temperature: number;
+  maxTokens: number;
+  systemPrompt: string;
 }
 
-interface GenerateResponseResult {
-  response: string;
-  confidence: number;
+interface ChatMessage {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
 }
 
-export class OllamaService {
-  private ollama: Ollama;
-
-  constructor() {
-    this.ollama = new Ollama({
-      host: 'http://localhost:11434', // adjust if needed
-    });
-  }
-
-  async generateResponse(
-    userMessage: string,
-    faqs: FAQ[]
-  ): Promise<GenerateResponseResult> {
-    const faqContext =
-      faqs.length > 0
-        ? faqs
-            .map((faq) => `Q: ${faq.question}\nA: ${faq.answer}`)
-            .join('\n\n')
-        : 'No FAQs available.';
-
-    const prompt = `
-You are a helpful assistant.
-
-Here are some FAQs:
-${faqContext}
-
-User Question:
-${userMessage}
-
-Answer clearly and concisely.
-`;
-
-    const result = await this.ollama.chat({
-      model: 'llama3',
-      messages: [
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-    });
-
-    const response = result?.message?.content ?? '';
-
-    // Simple confidence logic
-    let confidence = 0.2;
-
-    if (faqs.length === 0) {
-      confidence = 0.2;
-    } else {
-      const matched = faqs.some((faq) =>
-        userMessage.toLowerCase().includes(faq.question.toLowerCase())
-      );
-
-      confidence = matched ? 0.8 : 0.4;
-    }
-
-    return {
-      response,
-      confidence,
-    };
 // How many FAQs to pass as context. Keep this LOW — llama3.2 degrades with large
 // contexts and takes much longer to respond. 3–5 highly-relevant FAQs is optimal.
 const MAX_CONTEXT_FAQS = 5;
@@ -86,7 +25,7 @@ export class OllamaService {
   private requestTimeoutMs: number;
 
   constructor() {
-    const ollamaUrl = process.env.OLLAMA_URL || 'http://localhost:11434';
+    const ollamaUrl = process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
     this.ollama = new Ollama({ host: ollamaUrl });
     this.businessApi = new BusinessApiService();
 
@@ -125,7 +64,7 @@ export class OllamaService {
     // 4. Build messages
     const messages: ChatMessage[] = [
       { role: 'system', content: this.config.systemPrompt },
-      { role: 'user',   content: this.buildUserPrompt(userQuery, context) },
+      { role: 'user', content: this.buildUserPrompt(userQuery, context) },
     ];
 
     // 5. Call Ollama with timeout
@@ -159,12 +98,12 @@ export class OllamaService {
   private rankFAQsByRelevance(faqs: FAQData[], userQuery: string): FAQData[] {
     // Normalise + remove common stop words so "what is the" doesn't dilute scores
     const stopWords = new Set([
-      'a','an','the','is','are','was','were','be','been','being',
-      'have','has','had','do','does','did','will','would','could','should',
-      'may','might','shall','can','need','dare','ought','used','what','how',
-      'when','where','who','which','why','i','me','my','we','you','your',
-      'it','its','this','that','these','those','and','or','but','if','in',
-      'on','at','to','for','of','with','by','from','about','into','than',
+      'a', 'an', 'the', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+      'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should',
+      'may', 'might', 'shall', 'can', 'need', 'dare', 'ought', 'used', 'what', 'how',
+      'when', 'where', 'who', 'which', 'why', 'i', 'me', 'my', 'we', 'you', 'your',
+      'it', 'its', 'this', 'that', 'these', 'those', 'and', 'or', 'but', 'if', 'in',
+      'on', 'at', 'to', 'for', 'of', 'with', 'by', 'from', 'about', 'into', 'than',
     ]);
 
     const queryLower = userQuery.toLowerCase();
@@ -216,7 +155,7 @@ export class OllamaService {
       if (queryWords.length > 0) {
         for (const word of queryWords) {
           if (questionHaystack.includes(word)) score += 2; // question match = 2 pts
-          else if (haystack.includes(word))   score += 1; // answer-only match = 1 pt
+          else if (haystack.includes(word)) score += 1; // answer-only match = 1 pt
         }
       }
 

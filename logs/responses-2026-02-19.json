@@ -373,5 +373,383 @@
     "timestamp": "2026-02-19T07:37:30.187Z",
     "confidence": 0.8,
     "category": "AI"
+  },
+  {
+    "id": "1771494904368-l3v0jhgsa",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "response": "Hello! I'm happy to help you with any questions about CodeTribe Academy. What's on your mind?",
+    "timestamp": "2026-02-19T09:55:04.368Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771496468357-dzwc13ngk",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "response": "Hello! Welcome to CodeTribe Academy. Before we begin, please note that smoking is not allowed inside the facility but is permitted in designated areas outside. You'll also need a Google email account for uploading your CV and accessing course materials.",
+    "timestamp": "2026-02-19T10:21:08.357Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771496519983-ilx68xb37",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "response": "Hello! Welcome to CodeTribe Academy. Before we begin, please note that smoking is not allowed inside the facility, but it's permitted in designated areas outside. You'll also need a Google email account for uploading your CV and accessing course materials. Is there anything else you'd like to know about the programme?",
+    "timestamp": "2026-02-19T10:21:59.983Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771496585842-gagn9c3ca",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "response": "Hello! I'm here to help with CodeTribe Academy questions. What's on your mind? Need info about eligibility, application, curriculum, schedule, costs, policies, or logistics?",
+    "timestamp": "2026-02-19T10:23:05.842Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771496655360-aq8zgoldf",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "response": "Hello! Welcome to CodeTribe Academy. Please ensure you have a Google email account as it's required for uploading your CV and accessing course materials. Also, be aware of our internet usage rules during training hours to avoid any issues with browsing or downloading large files.",
+    "timestamp": "2026-02-19T10:24:15.360Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771496695204-u0h7ck1uz",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "response": "Hello! Welcome to CodeTribe Academy. Please ensure you have a Google email account, as it's required for uploading your CV and accessing training materials. Also, be aware of mLab's internet usage rules during training hours to avoid any issues.",
+    "timestamp": "2026-02-19T10:24:55.204Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771497765680-ylss5btm9",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "response": "You'll need a Google email account to upload your CV on the application form and collaborate with trainers during the course. This is also used for accessing training materials. Please ensure you have a valid Google email address before applying.",
+    "timestamp": "2026-02-19T10:42:45.680Z",
+    "confidence": null,
+    "category": "policies"
+  },
+  {
+    "id": "1771497773570-zulgf2nkp",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "response": "You'll need a Google email account to upload your CV on the application form and collaborate with instructors during training. This account is also used for accessing course materials. Please ensure you have a valid Google email address when applying.",
+    "timestamp": "2026-02-19T10:42:53.570Z",
+    "confidence": null,
+    "category": "policies"
+  },
+  {
+    "id": "1771497784351-8beqp1uql",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "response": "You don't need to install any software without prior approval from mLab, as all required software for the program will be provided and pre-installed. Loading illegal software is strictly prohibited and will result in immediate termination. You can only use the training computers with the approved software.",
+    "timestamp": "2026-02-19T10:43:04.351Z",
+    "confidence": null,
+    "category": "policies"
+  },
+  {
+    "id": "1771497792385-dtcbwsjly",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "response": "You'll need a Google email account to upload your CV on the application form and collaborate with instructors during training. A Google account is also required for accessing training materials. Please ensure you have an active Google account before applying.",
+    "timestamp": "2026-02-19T10:43:12.385Z",
+    "confidence": null,
+    "category": "policies"
+  },
+  {
+    "id": "1771497816951-aodkgweel",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "response": "You'll need a Google email account to upload your CV on the application form and access training materials during the course. You must also use this email for communication with CodeTribe Academy staff throughout the programme. This will be used as part of collaboration tools.",
+    "timestamp": "2026-02-19T10:43:36.951Z",
+    "confidence": null,
+    "category": "policies"
+  },
+  {
+    "id": "1771497910395-fg0o01js1",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "response": "You're applying to CodeTribe Academy. To apply, you'll need a Google email account to upload your CV and access course materials. The total value of R80,000 includes a monthly stipend, in-house mentoring, computer equipment, software licenses, and training facilities. You can find more details on the application process and eligibility requirements in our FAQs section.",
+    "timestamp": "2026-02-19T10:45:10.395Z",
+    "confidence": null,
+    "category": "policies"
+  },
+  {
+    "id": "1771498967219-c1jel5wdr",
+    "learnerId": "27664963438",
+    "query": "evd. d",
+    "response": "I don't have that information.",
+    "timestamp": "2026-02-19T11:02:47.219Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771498982303-xh23ff0eq",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "response": "You are applying to CodeTribe Academy. To upload your CV, you need a Google email account. The application form is available on the academy's website or through their social media channels. You can also ask mLab staff for assistance with creating a Google email account if needed.",
+    "timestamp": "2026-02-19T11:03:02.303Z",
+    "confidence": 0.5,
+    "category": "policies"
+  },
+  {
+    "id": "1771498994961-v6y9j3ne2",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "response": "You're referring to the Google email account requirement. You need a Google email account to upload your CV on the application form and for collaboration and accessing training materials during the course. It's also used as part of the CodeTribe Academy course. This is a required step in the application process.",
+    "timestamp": "2026-02-19T11:03:14.961Z",
+    "confidence": 0.5,
+    "category": "policies"
+  },
+  {
+    "id": "1771499014659-l7n4keiem",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "response": "You are eligible to apply if you meet certain requirements, but I don't have that information in my knowledge base. However, I can tell you that the R80,000 total value includes a monthly stipend, in-house mentoring and facilitation, computer and equipment, software licenses, and training facilities including internet. You will need a Google email account to upload your CV on the application form and participate in the course for collaboration and accessing training materials.",
+    "timestamp": "2026-02-19T11:03:34.659Z",
+    "confidence": 0.5,
+    "category": "policies"
+  },
+  {
+    "id": "1771499023927-1n8amnmsm",
+    "learnerId": "27664963438",
+    "query": "hello",
+    "response": "Hello! I'm here to help with CodeTribe Academy questions. What's on your mind? Need information about the program, eligibility, application process, or something else?",
+    "timestamp": "2026-02-19T11:03:43.927Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771499041017-7x7vkqtmg",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "response": "To confirm, you are referring to \"the GGE\" which I couldn't find in the knowledge base. However, I can tell you that CodeTribe Academy is a tech-skills programme run by MojaMedia, and it includes a monthly stipend of R27,000 as part of its total value of R80,000.",
+    "timestamp": "2026-02-19T11:04:01.017Z",
+    "confidence": 0.5,
+    "category": "policies"
+  },
+  {
+    "id": "1771499045332-cs587hmfc",
+    "learnerId": "27664963438",
+    "query": "evd. d",
+    "response": "I don't have that information.",
+    "timestamp": "2026-02-19T11:04:05.332Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771499049326-r1x8qld77",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "response": "I don't have that information.",
+    "timestamp": "2026-02-19T11:04:09.326Z",
+    "confidence": 0.5,
+    "category": "policies"
+  },
+  {
+    "id": "1771499063895-4hjw90gga",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "response": "You'll need a Google email account to upload your CV on the application form and collaborate with instructors during training. You must restrict browsing to 10-15MB local and 8-10MB international during training hours, as large files or downloads are prohibited. Installing software without prior approval is also not allowed.",
+    "timestamp": "2026-02-19T11:04:23.895Z",
+    "confidence": null,
+    "category": "policies"
+  },
+  {
+    "id": "1771499172689-um82t59y5",
+    "learnerId": "27664963438",
+    "query": "evd. d",
+    "response": "I don't have that information.",
+    "timestamp": "2026-02-19T11:06:12.690Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771499302132-657xmg342",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "response": "You are eligible to apply if you meet CodeTribe Academy's requirements, which are not specified in the knowledge base. However, according to FAQ [3], a Google email account is required for uploading your CV and accessing course materials. You can find more information about eligibility on the FAQs page of the CodeTribe Academy website or by contacting them directly.",
+    "timestamp": "2026-02-19T11:08:22.132Z",
+    "confidence": 0.5,
+    "category": "policies"
+  },
+  {
+    "id": "1771505794700-rz43dp13j",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "response": "You're referring to the Google email account requirement. To upload your CV, you need a Google email account as part of the application process. This account will also be used for collaboration and accessing training materials during the course.",
+    "timestamp": "2026-02-19T12:56:34.700Z",
+    "confidence": 0.5,
+    "category": "policies"
+  },
+  {
+    "id": "1771507618337-fmixrxruh",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "response": "To confirm, you're asking about the Google email account requirement. You need a Google email account to upload your CV on the application form and for collaboration during the course. It's also used to access training materials. Is there anything else regarding this requirement you'd like clarification on?",
+    "timestamp": "2026-02-19T13:26:58.337Z",
+    "confidence": 0.5,
+    "category": "policies"
+  },
+  {
+    "id": "1771509186032-5d7f6sm3x",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "response": "CodeTribe Academy is a tech-skills programme that trains developers with a focus on South African citizens. Since its launch in 2014, over 500 developers have been trained through the programme, which has a strong track record of producing skilled developers. The programme aims to equip participants with in-demand skills and make them highly employable in the tech industry or help them start their own businesses.",
+    "timestamp": "2026-02-19T13:53:06.032Z",
+    "confidence": 0.16666666666666666,
+    "category": "policies"
+  },
+  {
+    "id": "1771509199705-twujfu7t9",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "response": "CodeTribe Academy is a tech-skills programme that trains developers with in-demand skills, focusing on making participants highly employable. The programme has a strong track record of producing skilled developers, with over 500 trained since its launch in 2014. It offers real-world projects, QCTO certification, and professional portfolio development to help graduates find employment or start their own businesses.",
+    "timestamp": "2026-02-19T13:53:19.705Z",
+    "confidence": 0.16666666666666666,
+    "category": "policies"
+  },
+  {
+    "id": "1771509213624-w8g82yiho",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "response": "CodeTribe Academy is a tech-skills programme that trains developers, with over 500 graduates trained since its launch in 2014. The programme focuses on producing skilled developers with in-demand skills, using Google collaboration tools and QCTO certification. It's designed to make you highly employable, but doesn't guarantee employment - many graduates have found work or started their own businesses.",
+    "timestamp": "2026-02-19T13:53:33.624Z",
+    "confidence": 0.16666666666666666,
+    "category": "policies"
+  },
+  {
+    "id": "1771509226511-poslaxdma",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "response": "CodeTribe Academy is a tech-skills programme that provides training for developers, with a strong focus on producing skilled South African developers. The programme has a good track record of success, having trained over 500 developers since its launch in 2014. It offers a range of skills and certifications to help graduates become highly employable in the tech industry.",
+    "timestamp": "2026-02-19T13:53:46.511Z",
+    "confidence": 0.16666666666666666,
+    "category": "policies"
+  },
+  {
+    "id": "1771509243634-3tjubhsnh",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "response": "CodeTribe Academy is a tech-skills programme that trains developers. Since its launch in 2014, over 500 developers have been trained through the academy, with a strong track record of producing skilled developers. The programme focuses on making participants highly employable with in-demand skills, and many graduates have found employment in the tech industry or started their own businesses.",
+    "timestamp": "2026-02-19T13:54:03.634Z",
+    "confidence": 0.16666666666666666,
+    "category": "policies"
+  },
+  {
+    "id": "1771509325991-v84t95sv8",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "response": "You're good to go! You'll receive a monthly stipend of R27,000, in-house mentoring and facilitation for R25,000, computer and equipment for R15,000, software licenses for R8,000, and training facilities including internet for R5,000, totaling R80,000. A Google email account is required to upload your CV and collaborate during the course.",
+    "timestamp": "2026-02-19T13:55:25.991Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771509340042-bpaamz588",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "response": "You're good to go! You'll need a Google email account to apply and participate in the program, as it's required for uploading your CV and accessing course materials. Make sure you have a stable internet connection at home before starting the program. During training hours, be mindful of the 10-15MB local and 8-10MB international data limits to avoid any issues.",
+    "timestamp": "2026-02-19T13:55:40.042Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771509350453-bb9tam2hm",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "response": "You're good to go! You'll need a Google email account to upload your CV and collaborate with instructors during training. There are internet usage rules, including restrictions on downloading large files or visiting certain sites. All required software for the programme will be provided and pre-installed on the training computers.",
+    "timestamp": "2026-02-19T13:55:50.453Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771509391607-5had7g1ao",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "response": "CodeTribe Academy is a tech-skills programme that trains developers with a strong focus on producing skilled professionals. Since its launch in 2014, over 500 developers have been trained through the academy, with a notable 48% female participation rate. The programme aims to equip participants with in-demand skills, making them highly employable in the tech industry or enabling them to start their own businesses.",
+    "timestamp": "2026-02-19T13:56:31.607Z",
+    "confidence": 0.16666666666666666,
+    "category": "policies"
+  },
+  {
+    "id": "1771509432523-47vgvtl1z",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "response": "You're good to go! You'll need a Google email account to apply and participate in the program, as it's required for uploading your CV and accessing course materials. Make sure you have internet access during training hours, but be aware of the restrictions on browsing (10-15MB local, 8-10MB international) and prohibited activities like downloading illegal software or sharing confidential info.",
+    "timestamp": "2026-02-19T13:57:12.523Z",
+    "confidence": 0,
+    "category": "policies"
+  },
+  {
+    "id": "1771509476352-2ca6tzl4n",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "response": "I don't have that information. The knowledge base does not mention AI or its potential impact on employment. However, it does state that CodeTribe is designed to make you highly employable with in-demand skills, and many graduates have found employment in the tech industry or started their own businesses.",
+    "timestamp": "2026-02-19T13:57:56.352Z",
+    "confidence": 0.6,
+    "category": "policies"
+  },
+  {
+    "id": "1771509491648-fndosa0e1",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "response": "I don't have information about AI taking over the world, as this is not related to CodeTribe Academy's curriculum or policies. The knowledge base focuses on the academy's program details, such as application process, eligibility requirements, and code of conduct. If you're interested in learning more about AI-related topics, I can try to provide general information or direct you to relevant resources outside of the CodeTribe Academy knowledge base.",
+    "timestamp": "2026-02-19T13:58:11.648Z",
+    "confidence": 0.6,
+    "category": "policies"
+  },
+  {
+    "id": "1771509591248-mucgmbclx",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "response": "I don't have information about AI taking over the world, as it's not related to CodeTribe Academy. The knowledge base doesn't cover topics like this. However, I can tell you that CodeTribe focuses on teaching in-demand skills and making developers highly employable, which might help address some of the concerns around automation and AI in the tech industry.",
+    "timestamp": "2026-02-19T13:59:51.248Z",
+    "confidence": 0.6,
+    "category": "policies"
+  },
+  {
+    "id": "1771510136186-r23ixbl3m",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "response": "I don't have information about AI taking over the world in relation to CodeTribe Academy. The knowledge base does not mention this topic at all. However, I can tell you that CodeTribe focuses on teaching in-demand skills for a career in tech and has a strong track record of producing skilled developers.",
+    "timestamp": "2026-02-19T14:08:56.186Z",
+    "confidence": 0.6,
+    "category": "policies"
+  },
+  {
+    "id": "1771510449255-g1k5022lb",
+    "learnerId": "27664963438",
+    "query": "What does the mobile development curriculum at CodeTribe cover?",
+    "response": "The mobile development curriculum at CodeTribe Academy covers Mobile App Development for Android and iOS, including learning about real-world projects that include collaboration with local businesses.",
+    "timestamp": "2026-02-19T14:14:09.255Z",
+    "confidence": 0.625,
+    "category": "programme_details"
+  },
+  {
+    "id": "1771510460777-42kc25fa8",
+    "learnerId": "27664963438",
+    "query": "What does the mobile development curriculum at CodeTribe cover?",
+    "response": "The mobile development curriculum at CodeTribe Academy covers Mobile App Development for Android and iOS. This includes learning HTML, CSS, JavaScript, React/Vue, Node.js, among other technologies related to mobile app development. You will work on real-world projects including collaboration with local businesses as part of this module.",
+    "timestamp": "2026-02-19T14:14:20.777Z",
+    "confidence": 0.625,
+    "category": "programme_details"
+  },
+  {
+    "id": "1771510471593-74kfomwdt",
+    "learnerId": "27664963438",
+    "query": "What does the mobile development curriculum at CodeTribe cover?",
+    "response": "The mobile app development curriculum at CodeTribe Academy covers Mobile App Development for Android and iOS, including learning about these technologies as part of the broader curriculum that includes Web Development, Cloud Technologies, Scrum Agile Project Management, 4IR Technologies, and Portfolio Development.",
+    "timestamp": "2026-02-19T14:14:31.593Z",
+    "confidence": 0.625,
+    "category": "programme_details"
   }
 ]
