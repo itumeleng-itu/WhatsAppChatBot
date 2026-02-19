@@ -1,16 +1,11 @@
-import { ProgrammeQuery, programmeOrder } from '../types/programmes.types';
+import { parsePaginationParams, scalar, type RawParams } from './sharedfile-utility/parseQuery.sharedFile';
+import type { ProgrammeQuery } from '../types/programmes.types';
 
-export const parseProgrammeQuery = (
-  query: Record<string, string | undefined>
-): ProgrammeQuery => {
-  const limit = query.limit ? Number(query.limit) : 20;
-  const offset = query.offset ? Number(query.offset) : 0;
+export function parseProgrammeQueryParams(params: RawParams): ProgrammeQuery {
+  const result: ProgrammeQuery = { ...parsePaginationParams(params) };
 
-  return {
-    category: query.category,
-    limit: limit > 100 ? 100 : limit,
-    offset: offset >= 0 ? offset : 0,
-    sort: query.sort ?? 'name',
-    order: (query.order as programmeOrder) ?? 'asc',
-  };
-};
+  const rawCategory = scalar(params.category);
+  if (rawCategory !== undefined) result.category = rawCategory;
+
+  return result;
+}

@@ -11,8 +11,13 @@ dist/
 .env.local
 .env.example
 
+# private key
+private.key
+
+
 # Logs
 *.log
+logs/
 
 # OS files
 .DS_Store
@@ -25,8 +30,8 @@ Thumbs.db
 *.swo
 EOF
 ```
-#private key
-
+# Private keys
 private.key
+private.key.txt
 *.key
 *.pem

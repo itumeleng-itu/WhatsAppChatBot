@@ -1,31 +1,32 @@
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
-export type FaqCategory =
-  | "policies"
-  | "financial"
-  | "general"
-  | "programme_details"
-  | "application"
-  | "eligibility"
-  | "logistics";
+export type EventType =
+  | "bootcamp"
+  | "class_hours"
+  | "graduation";
 
-export type FaqSource =
-  | "codetribe_whatsapp"
-  | "mlab_website"
-  | "both";
+export type DayOfWeek =
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday"
+  | "Sunday";
 
 // ─── Core Entity ──────────────────────────────────────────────────────────────
 
-export interface Faq {
+export interface Schedule {
   id: string;
-  question: string;
-  answer: string;
-  category: FaqCategory;
-  source: FaqSource;
-  programme_id: string | null; // null = applies globally, not programme-specific
-  keywords: string[];
-  priority: number;
-  is_active: boolean;
+  programme_id: string;
+  event_type: EventType;
+  description: string;
+  start_date: string; // ISO 8601 date string (YYYY-MM-DD)
+  end_date: string;   // ISO 8601 date string (YYYY-MM-DD)
+  days_of_week: DayOfWeek[];
+  start_time: string; // Time string (HH:MM:SS)
+  end_time: string;   // Time string (HH:MM:SS)
+  is_recurring: boolean;
   created_at: string; // ISO 8601 datetime string
   updated_at: string; // ISO 8601 datetime string
 }
@@ -48,8 +49,8 @@ export interface ApiMeta {
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 
-export interface FaqsApiResponse {
-  data: Faq[];
+export interface SchedulesApiResponse {
+  data: Schedule[];
   pagination: Pagination;
   meta: ApiMeta;
 }

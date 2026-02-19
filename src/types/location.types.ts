@@ -1,30 +1,27 @@
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
-export type FaqCategory =
-  | "policies"
-  | "financial"
-  | "general"
-  | "programme_details"
-  | "application"
-  | "eligibility"
-  | "logistics";
-
-export type FaqSource =
-  | "codetribe_whatsapp"
-  | "mlab_website"
-  | "both";
+export type LocationType =
+  | "headquarters"
+  | "satellite"
+  | "partner_site";
 
 // ─── Core Entity ──────────────────────────────────────────────────────────────
 
-export interface Faq {
+export interface Location {
   id: string;
-  question: string;
-  answer: string;
-  category: FaqCategory;
-  source: FaqSource;
-  programme_id: string | null; // null = applies globally, not programme-specific
-  keywords: string[];
-  priority: number;
+  name: string;
+  type: LocationType;
+  address_line1: string | null;
+  address_line2: string | null;
+  city: string;
+  province: string;
+  postal_code: string | null;
+  country: string;
+  latitude: number | null;
+  longitude: number | null;
+  contact_email: string | null;
+  contact_phone: string | null;
+  operating_hours: string | null;
   is_active: boolean;
   created_at: string; // ISO 8601 datetime string
   updated_at: string; // ISO 8601 datetime string
@@ -48,8 +45,8 @@ export interface ApiMeta {
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 
-export interface FaqsApiResponse {
-  data: Faq[];
+export interface LocationsApiResponse {
+  data: Location[];
   pagination: Pagination;
   meta: ApiMeta;
 }

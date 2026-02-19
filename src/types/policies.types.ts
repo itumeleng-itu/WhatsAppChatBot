@@ -1,31 +1,29 @@
+
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
-export type FaqCategory =
-  | "policies"
-  | "financial"
-  | "general"
-  | "programme_details"
-  | "application"
-  | "eligibility"
-  | "logistics";
+export type PolicyCategory =
+  | "assessment"
+  | "attendance"
+  | "conduct"
+  | "confidentiality"
+  | "equipment"
+  | "internet"
+  | "termination"
+  | "other";
 
-export type FaqSource =
-  | "codetribe_whatsapp"
-  | "mlab_website"
-  | "both";
+export type PolicyAppliesTo = "all_programmes" | "CodeTribe Academy";
 
 // ─── Core Entity ──────────────────────────────────────────────────────────────
 
-export interface Faq {
+export interface Policy {
   id: string;
-  question: string;
-  answer: string;
-  category: FaqCategory;
-  source: FaqSource;
-  programme_id: string | null; // null = applies globally, not programme-specific
-  keywords: string[];
-  priority: number;
-  is_active: boolean;
+  policy_category: PolicyCategory;
+  policy_name: string;
+  policy_description: string;
+  applies_to: PolicyAppliesTo;
+  is_mandatory: boolean;
+  consequences: string | null;
+  source_document: string;
   created_at: string; // ISO 8601 datetime string
   updated_at: string; // ISO 8601 datetime string
 }
@@ -48,8 +46,8 @@ export interface ApiMeta {
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 
-export interface FaqsApiResponse {
-  data: Faq[];
+export interface PoliciesApiResponse {
+  data: Policy[];
   pagination: Pagination;
   meta: ApiMeta;
 }
