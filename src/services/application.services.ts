@@ -1,0 +1,13 @@
+import { buildUrl, apiFetch } from './apiService/apiService.shared';
+import { parseApplicationStepQueryParams } from '../utils/parseApplicationQuery';
+import type { ApplicationStepResponse } from '../types/application.types';
+import type { RawParams } from '../utils/sharedfile-utility/parseQuery.sharedFile';
+
+export const fetchApplicationSteps = async (
+  programmeId: string,
+  params?: RawParams
+): Promise<ApplicationStepResponse> => {
+  const query = params ? parseApplicationStepQueryParams(params) : {};
+  const url = buildUrl(`/api/application-process/${programmeId}`, query);
+  return apiFetch<ApplicationStepResponse>(url, 'application steps');
+};

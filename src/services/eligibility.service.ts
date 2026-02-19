@@ -1,24 +1,13 @@
-import { EligibilityItem, EligibilityQuery, EligibilityResponse } from '../types/eligibility.types';
-
-const ELIGIBILITY_API = process.env.CODETRIBE_PROGRAMMES_API;
+import { buildUrl, apiFetch } from './apiService/apiService.shared';
+import { parseEligibilityQueryParams } from '../utils/parseEligibilityQuery';
+import type { EligibilityResponse } from '../types/eligibility.types';
+import type { RawParams } from '../utils/sharedfile-utility/parseQuery.sharedFile';
 
 export const fetchEligibility = async (
   programmeId: string,
-  query: EligibilityQuery
+  params?: RawParams
 ): Promise<EligibilityResponse> => {
-  if (!ELIGIBILITY_API) throw new Error('Eligibility API URL not defined in .env');
-
-  const params = new URLSearchParams({
-    limit: String(query.limit ?? 20),
-    offset: String(query.offset ?? 0),
-    sort: query.sort ?? 'sort_order',
-    order: query.order ?? 'asc',
-  });
-
-  const url = `${ELIGIBILITY_API}/${programmeId}?${params.toString()}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Failed to fetch eligibility data');
-
-  const json = await res.json();
-  return json;
+  const query = params ? parseEligibilityQueryParams(params) : {};
+  const url = buildUrl(`/api/eligibility/${programmeId}`,query );
+  return apiFetch<EligibilityResponse>(url, 'eligibility');
 };

@@ -1,13 +1,15 @@
-import { faqQuery } from '../types/faq.types';
+import { buildUrl, apiFetch } from './apiService/apiService.shared';
+import { parseFaqQueryParams } from '../utils/parseFaqQuery';
+import type { FaqResponse } from '../types/faq.types';
+import type { RawParams } from '../utils/sharedfile-utility/parseQuery.sharedFile';
 
-const EXTERNAL_API =process.env.CODETRIBE_PROGRAMMES_API!;
+export const fetchFaq = async (params: RawParams): Promise<FaqResponse> => {
+  const query = parseFaqQueryParams(params);
 
-export const fetchfaq = async (): Promise<faqQuery[]> => {
-  const response = await fetch(EXTERNAL_API);
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch FAQ');
+  if (!query) {
+    throw new Error('Failed to fetch FAQs: q and scope are required parameters');
   }
 
-  return response.json();
+  const url = buildUrl('/api/faqs',query );
+  return apiFetch<FaqResponse>(url, 'FAQs');
 };
