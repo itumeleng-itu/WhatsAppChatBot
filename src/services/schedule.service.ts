@@ -1,13 +1,13 @@
 import { buildUrl, apiFetch } from './apiService/apiService.shared';
 import { parseSchedulesQueryParams } from '../utils/parseScheduleQuery';
-import type { SchedulesResponse } from '../types/schedules.types';
+import type { SchedulesApiResponse } from '../types/schedules.types';
 import type { RawParams } from '../utils/sharedfile-utility/parseQuery.sharedFile';
 
 export const fetchSchedules = async (
   programmeId: string,
   params?: RawParams
-): Promise<SchedulesResponse> => {
+): Promise<SchedulesApiResponse> => {
   const query = params ? parseSchedulesQueryParams(params) : {};
   const url = buildUrl(`/api/schedules/${programmeId}`, query);
-  return apiFetch<SchedulesResponse>(url, 'schedules');
+  return apiFetch<SchedulesApiResponse>(url, 'schedules');
 };
