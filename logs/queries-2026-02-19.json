@@ -88,5 +88,323 @@
     "learnerId": "learner1",
     "query": "What is AI?",
     "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T09:52:45.365Z",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T09:54:00.997Z",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:20:00.279Z",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:21:47.782Z",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:22:56.593Z",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:24:04.892Z",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:24:45.356Z",
+    "learnerId": "27123456789",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:41:32.026Z",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:41:47.466Z",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:42:07.249Z",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:42:37.436Z",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:43:27.657Z",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T10:44:57.622Z",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:01:47.179Z",
+    "learnerId": "27664963438",
+    "query": "evd. d",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:01:47.373Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:02:02.401Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:02:22.521Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:02:25.439Z",
+    "learnerId": "27664963438",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:02:52.654Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:03:17.352Z",
+    "learnerId": "27664963438",
+    "query": "evd. d",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:03:42.804Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:03:49.482Z",
+    "learnerId": "27817628797",
+    "query": "Hi",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:05:12.924Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:05:15.590Z",
+    "learnerId": "27664963438",
+    "query": "hello",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:06:07.094Z",
+    "learnerId": "27664963438",
+    "query": "evd. d",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T11:08:02.923Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T12:55:25.044Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:10:35.120Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:25:45.481Z",
+    "learnerId": "27664963438",
+    "query": "the gge",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:51:55.392Z",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:52:10.571Z",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:52:30.890Z",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:53:00.888Z",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:53:50.597Z",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:54:40.963Z",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:54:56.099Z",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:55:16.236Z",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:55:20.696Z",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:55:45.973Z",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:56:08.486Z",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:56:23.418Z",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:56:36.086Z",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:56:43.554Z",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:57:13.680Z",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:58:03.767Z",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:58:06.196Z",
+    "learnerId": "27664963438",
+    "query": "okay",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:58:10.858Z",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T13:59:33.870Z",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T14:07:44.817Z",
+    "learnerId": "27664963438",
+    "query": "will ai take over the world",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T14:13:25.034Z",
+    "learnerId": "27664963438",
+    "query": "What does the mobile development curriculum at CodeTribe cover?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T14:13:40.196Z",
+    "learnerId": "27664963438",
+    "query": "What does the mobile development curriculum at CodeTribe cover?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T14:14:00.356Z",
+    "learnerId": "27664963438",
+    "query": "What does the mobile development curriculum at CodeTribe cover?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T14:14:21.698Z",
+    "learnerId": "27664963438",
+    "query": "What is CodeTribe Academy? Give a friendly overview.",
+    "type": "query"
   }
 ]

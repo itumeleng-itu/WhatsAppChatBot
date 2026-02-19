@@ -1,6 +1,6 @@
 import { buildUrl, apiFetch } from './apiService/apiService.shared';
 import { parseApplicationStepQueryParams } from '../utils/parseApplicationQuery';
-import type { ApplicationStepResponse } from '../types/application.types';
+import type { ApplicationProcessApiResponse as ApplicationStepResponse } from '../types/applicationProcess.types';
 import type { RawParams } from '../utils/sharedfile-utility/parseQuery.sharedFile';
 
 export const fetchApplicationSteps = async (

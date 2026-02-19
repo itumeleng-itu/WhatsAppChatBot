@@ -11,6 +11,13 @@ const vonageService = new VonageService();
  * Vonage WhatsApp webhook endpoint for incoming messages
  */
 router.post('/webhook', async (req: Request, res: Response) => {
+  console.log('Incoming Webhook Body:', JSON.stringify(req.body, null, 2));
+  // Handle status updates (delivery receipts)
+  if (req.body.status || (req.body.message_uuid && !req.body.message && !req.body.content && !req.body.text)) {
+    console.log('Received status update:', req.body.status);
+    return res.status(200).send('OK');
+  }
+
   const parsedMessage = vonageService.parseIncomingMessage(req.body);
 
   if (!parsedMessage || !parsedMessage.from || !parsedMessage.message) {

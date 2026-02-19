@@ -6,6 +6,10 @@ import { parseFaqQueryParams } from '../utils/parseFaqQuery';
 export const getFaqs = async (req: Request, res: Response): Promise<void> => {
   try {
     const query = parseFaqQueryParams(req.query as Record<string, string>);
+    if (!query) {
+      res.status(400).json({ error: 'Missing required query parameters: q and scope' });
+      return;
+    }
     let faq = await fetchFaqs();
 
     //? Optional filtering
