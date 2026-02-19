@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
-import { fetchfaq } from '../services/faq.services';
-import { parseFaqQuery } from '../utils/parseFaqQuery'; 
+import { fetchFaqs } from '../services/faq.services';
+import { handleControllerError, extractQuery } from './controllersutils/controllers.utilscontroller';
+import { parseFaqQueryParams } from '../utils/parseFaqQuery';
 
-export const getFaq = async (req: Request, res: Response) => {
+export const getFaqs = async (req: Request, res: Response): Promise<void> => {
   try {
-    const query = parseFaqQuery(req.query as Record<string, string>);
-    let faq = await fetchfaq();
+    const query = parseFaqQueryParams(req.query as Record<string, string>);
+    let faq = await fetchFaqs();
 
     //? Optional filtering
     if (query.scope) {
-      faq = faq.filter(p => p.scope === query.source);
+      faq = faq.filter(p => p.source === query.source);
     }
 
     if (query.category) {
