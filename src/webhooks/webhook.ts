@@ -34,16 +34,16 @@ router.post('/inbound', async (req: Request, res: Response) => {
                     await WhatsAppService.sendEligibilityInfo(from);
                     break;
                 case 'application_process':
-                    await WhatsAppService.sendApplicationProcess(from);
+                    await WhatsAppService.sendApplicationInfo(from);
                     break;
                 case 'curriculum':
-                    await WhatsAppService.sendCurriculum(from);
+                    await WhatsAppService.sendCurriculumInformation(from);
                     break;
                 case 'schedules':
-                    await WhatsAppService.sendSchedules(from);
+                    await WhatsAppService.sendScheduleInformation(from);
                     break;
                 case 'policies':
-                    await WhatsAppService.sendPolicies(from);
+                    await WhatsAppService.sendPoliciesInfo(from);
                     break;
                 case 'locations':
                     await WhatsAppService.sendLocations(from);
