@@ -4,13 +4,23 @@
   "main": "dist/server.js",
   "type": "commonjs",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*' --exec 'ts-node' src/server.ts",
+    "dev": "nodemon --watch src/**/* --exec \"npx ts-node\" src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test:integration": "npx ts-node test-integration.ts",
+    "test:cache": "npx ts-node test-cache-pagination.ts",
+    "test:speed": "npx ts-node test-speed.ts",
+    "test:bot": "npx ts-node test-bot-response.ts",
+    "test:bot:quick": "npx ts-node test-bot-quick.ts",
+    "test:bot:interactive": "npx ts-node test-bot-interactive.ts"
   },
   "dependencies": {
+    "@vonage/auth": "^1.14.0",
+    "@vonage/server-sdk": "^3.26.0",
+    "axios": "^1.13.5",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "ollama": "^0.6.3",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

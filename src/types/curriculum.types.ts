@@ -1,37 +1,37 @@
-export type CurriculumOrder = 'asc' | 'desc';
+//─── Core Entity ──────────────────────────────────────────────────────────────
 
-//* Query params
-export interface CurriculumQuery {
-  limit?: number;
-  offset?: number;
-  sort?: string;     
-  order?: CurriculumOrder;
+export interface CurriculumModule {
+  id: string;
+  programme_id: string;
+  module_name: string;
+  module_description: string;
+  topics_covered: string[];
+  duration_weeks: number;
+  sort_order: number;
+  created_at: string; // ISO 8601 datetime string
+  updated_at: string; // ISO 8601 datetime string
 }
 
-//* Curriculum module item
-export interface CurriculumItem {
-  id: string;
-  programme_id: string;
-  module_name: string;
-  module_description: string;
-  topics_covered: string[];
-  duration_weeks: number;
-  sort_order: number;
-  created_at?: string;
-  updated_at?: string;
+// ─── Pagination ───────────────────────────────────────────────────────────────
+
+export interface Pagination {
+  total: number;
+  limit: number;
+  offset: number;
+  hasMore: boolean;
 }
 
-//* API response
-export interface CurriculumResponse {
-  data: CurriculumItem[];
-  pagination: {
-    total: number;
-    limit: number;
-    offset: number;
-    hasMore: boolean;
-  };
-  meta?: {
-    timestamp: string;
-    endpoint: string;
-  };
+// ─── Meta ─────────────────────────────────────────────────────────────────────
+
+export interface ApiMeta {
+  timestamp: string; // ISO 8601 datetime string
+  endpoint: string;
+}
+
+// ─── API Response ─────────────────────────────────────────────────────────────
+
+export interface CurriculumApiResponse {
+  data: CurriculumModule[];
+  pagination: Pagination;
+  meta: ApiMeta;
 }

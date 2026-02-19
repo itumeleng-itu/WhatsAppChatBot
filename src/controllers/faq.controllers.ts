@@ -1,21 +1,28 @@
 import { Request, Response } from 'express';
-import { fetchFaq } from '../services/faq.services';
-import { handleControllerError, extractQuery } from './/controllersutils/controllers.utilscontroller';
+import { fetchFaqs } from '../services/faq.services';
+import { handleControllerError, extractQuery } from './controllersutils/controllers.utilscontroller';
+import { parseFaqQueryParams } from '../utils/parseFaqQuery';
 
 export const getFaqs = async (req: Request, res: Response): Promise<void> => {
   try {
-    const data = await fetchFaq(extractQuery(req));
-    res.status(200).json(data);
-  } catch (error) {
-    // fetchFaq throws a descriptive error if q or scope are missing
-    const isBadRequest =
-      error instanceof Error && error.message.includes('required parameters');
+    const query = parseFaqQueryParams(req.query as Record<string, string>);
+    let faq = await fetchFaqs();
 
-    if (isBadRequest) {
-      res.status(400).json({ error: error.message });
-      return;
+    //? Optional filtering
+    if (query.scope) {
+      faq = faq.filter(p => p.source === query.source);
     }
 
-    handleControllerError(res, error, 'FAQs');
+    if (query.category) {
+      faq = faq.filter(p => p.category === query.category);
+    }
+
+    res.json(faq);
+  } catch (error: any) {
+    console.error('Error fetching FAQ:', error);
+    res.status(500).json({
+      error: 'Failed to load FAQ',
+      message: error?.message || 'Unknown error',
+    });
   }
 };

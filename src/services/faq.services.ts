@@ -1,15 +1,44 @@
-import { buildUrl, apiFetch } from './apiService/apiService.shared';
-import { parseFaqQueryParams } from '../utils/parseFaqQuery';
-import type { FaqResponse } from '../types/faq.types';
-import type { RawParams } from '../utils/sharedfile-utility/parseQuery.sharedFile';
+import {  Faq } from '../types/faq.types';
+import {  EligibilityCriterion } from '../types/eligibility.types';
+import {  ApplicationStep } from '../types/applicationProcess.types';
+import {  CurriculumModule } from '../types/curriculum.types';
+import {  Schedule } from '../types/schedules.types';
+import {  Policy } from '../types/policies.types';
+import {  Location as MLabLocation } from '../types/location.types';
 
-export const fetchFaq = async (params: RawParams): Promise<FaqResponse> => {
-  const query = parseFaqQueryParams(params);
+const BASE_URL = process.env.CODETRIBE_PROGRAMMES_API;
+const PROGRAM_ID = process.env.CODETRIBE_PROGRAM_ID;
 
-  if (!query) {
-    throw new Error('Failed to fetch FAQs: q and scope are required parameters');
-  }
+// generic fetcher to avoid repeating fetch logic
+const fetchFromApi = async <T>(endpoint: string): Promise<T[]> => {
+    const response = await fetch(`${BASE_URL}${endpoint}`);
 
-  const url = buildUrl('/api/faqs',query );
-  return apiFetch<FaqResponse>(url, 'FAQs');
+    if (!response.ok) {
+        throw new Error(`Failed to fetch ${endpoint}`);
+    }
+
+    const json = await response.json();
+    return json.data ?? [];  // unwrap the { data: [...] } wrapper
 };
+
+
+export const fetchFaqs =():Promise<Faq[]> =>
+    fetchFromApi<Faq>('/faqs');
+
+export const fetchEligibility =():Promise<EligibilityCriterion[]> => 
+    fetchFromApi<EligibilityCriterion>(`/eligibility/${PROGRAM_ID}`);
+
+export const fetchPolicies = ():Promise<Policy[]> =>
+    fetchFromApi<Policy>('/policies')
+
+export const fetchApplicationProcess = ():Promise<ApplicationStep[]> =>
+    fetchFromApi<ApplicationStep>(`application-process/${PROGRAM_ID}`)
+
+export const fetchCurriculum= () :Promise<CurriculumModule[]> =>
+    fetchFromApi<CurriculumModule>(`curriculum/${PROGRAM_ID}`)
+
+export const fetchLocations = ():Promise<MLabLocation[]> =>
+    fetchFromApi<MLabLocation>('/locations')
+
+export const fetchSchedule =():Promise<Schedule[]> =>
+    fetchFromApi<Schedule>(`schedules/${PROGRAM_ID}`)

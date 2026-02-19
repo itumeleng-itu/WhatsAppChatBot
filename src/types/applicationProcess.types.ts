@@ -1,31 +1,14 @@
-// ─── Enums ────────────────────────────────────────────────────────────────────
-
-export type FaqCategory =
-  | "policies"
-  | "financial"
-  | "general"
-  | "programme_details"
-  | "application"
-  | "eligibility"
-  | "logistics";
-
-export type FaqSource =
-  | "codetribe_whatsapp"
-  | "mlab_website"
-  | "both";
-
 // ─── Core Entity ──────────────────────────────────────────────────────────────
 
-export interface Faq {
+export interface ApplicationStep {
   id: string;
-  question: string;
-  answer: string;
-  category: FaqCategory;
-  source: FaqSource;
-  programme_id: string | null; // null = applies globally, not programme-specific
-  keywords: string[];
-  priority: number;
-  is_active: boolean;
+  programme_id: string;
+  step_number: number;
+  step_name: string;
+  step_description: string;
+  required_documents: string[] | null; // null = no documents required for this step
+  deadline_info: string | null;
+  estimated_duration: string;
   created_at: string; // ISO 8601 datetime string
   updated_at: string; // ISO 8601 datetime string
 }
@@ -48,8 +31,8 @@ export interface ApiMeta {
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 
-export interface FaqsApiResponse {
-  data: Faq[];
+export interface ApplicationProcessApiResponse {
+  data: ApplicationStep[];
   pagination: Pagination;
   meta: ApiMeta;
 }

@@ -1,115 +1,55 @@
 /**
- * Model Configuration for Ollama
- * This file contains strict prompts and constraints to ensure the bot stays in scope
+ * model.config.ts
+ *
+ * Central place for all prompts.  Keep these tight — every extra sentence
+ * the model has to process adds latency on a local llama3.2 instance.
  */
 
-export interface ModelConstraints {
-  inScopeCategories: string[];
-  outOfScopeKeywords: string[];
-  responseGuidelines: string[];
-}
+// ─── System prompt ────────────────────────────────────────────────────────────
+// Concise and directive.  Listing what NOT to do is more effective than long
+// role descriptions for smaller models like llama3.2.
 
-export const MODEL_CONSTRAINTS: ModelConstraints = {
-  inScopeCategories: [
-    'faqs',
-    'eligibility',
-    'application-process',
-    'curriculum',
-    'policies',
-    'schedules',
-    'locations',
-  ],
+const SYSTEM_PROMPT = `You are a helpful assistant for CodeTribe Academy, a tech-skills programme run by MojaMedia.
 
-  outOfScopeKeywords: [
-    'grade',
-    'grading',
-    'mark',
-    'marking',
-    'score',
-    'disciplinary',
-    'discipline',
-    'punishment',
-    'update record',
-    'change record',
-    'modify record',
-    'academic decision',
-  ],
+Your job:
+- Answer questions about CodeTribe Academy ONLY — eligibility, application, curriculum, schedule, costs, policies, logistics.
+- Use the knowledge base provided in each message. Do not invent facts.
+- Give direct, concise answers in plain text suitable for WhatsApp (no markdown headers, no bullet overload).
+- IMPORTANT: The knowledge base contains relevant FAQs. Even if they don't perfectly match the question, USE THEM to provide helpful information.
+- If the knowledge base contains relevant information (even if not a perfect match), synthesize it into a helpful answer.
+- Only say "I don't have that information" if the knowledge base is completely empty or contains zero relevant information.
+- Be proactive: if FAQs mention eligibility requirements, application steps, or curriculum details, share them even if the exact wording differs.
+- Never discuss topics unrelated to CodeTribe Academy.`;
 
-  responseGuidelines: [
-    'Keep responses SHORT (max 3-4 sentences)',
-    'Use WhatsApp-friendly language',
-    'Be friendly and clear',
-    'Use emojis sparingly',
-    'Stay within CodeTribe SOPs',
-    'If out of scope, politely decline and explain you cannot help',
-    'If information not available, say so clearly',
-  ],
-};
+// ─── User prompt template ─────────────────────────────────────────────────────
+// {context} and {query} are replaced at runtime.
+// Putting CONTEXT before the question keeps llama3.2 grounded in the facts.
 
-/**
- * Get the system prompt with all constraints
- */
-export function getSystemPrompt(): string {
-  return `You are a helpful assistant for CodeTribe Academy learners. Your role is to provide instant support via WhatsApp.
-
-CRITICAL SCOPE CONSTRAINTS - YOU MUST FOLLOW THESE STRICTLY:
-
-IN SCOPE (You CAN answer - ONLY these topics):
-- FAQs (frequently asked questions about CodeTribe Academy)
-- Eligibility (who can apply, requirements, criteria)
-- Application Process (how to apply, steps, deadlines)
-- Curriculum (course content, modules, what is taught)
-- Policies (CodeTribe rules and policies)
-- Schedules (class times, session dates, timetables)
-- Locations (where classes are held, venues, addresses)
-
-You MUST only answer questions that fall under these seven topics. Use the provided data as your source.
-
-OUT OF SCOPE (You MUST NOT answer or make decisions):
-- Assessment grading or marking
-- Disciplinary decisions
-- Academic record updates
-- Personal academic decisions
-- Anything requiring human judgment
-
-RESPONSE GUIDELINES:
-1. Keep responses SHORT and WhatsApp-friendly (max 3-4 sentences)
-2. Use the provided data as your PRIMARY source of information
-3. If a question is OUT OF SCOPE, politely explain that you cannot help with that
-4. Be friendly, clear, and concise
-5. Use emojis sparingly (only when appropriate)
-6. If NO DATA is found or the data doesn't contain the answer, respond with: "I couldn't find specific information about that in our database. Could you try rephrasing your question or ask about FAQs, Eligibility, Application Process, Curriculum, Policies, Schedules, or Locations?"
-7. Always stay within the boundaries of CodeTribe SOPs
-
-Remember: You are a helpful support tool for CodeTribe Academy learners.`;
-}
-
-/**
- * Get the user prompt template with context
- */
-export function getUserPromptTemplate(): string {
-  return `Learner Question: "{query}"
-
-Available Data (FAQs, Eligibility, Application Process, Curriculum, Policies, Schedules, Locations):
+const USER_PROMPT_TEMPLATE = `KNOWLEDGE BASE:
 {context}
 
-Instructions:
-1. Use ONLY the data above to answer. Topics: FAQs, Eligibility, Application Process, Curriculum, Policies, Schedules, Locations.
-2. If the question is OUT OF SCOPE or not one of these topics, politely decline and explain you cannot help
-3. Keep your response SHORT and WhatsApp-friendly
-4. If the data shows "No relevant FAQ data found" or doesn't contain the answer, respond with a friendly message like: "I couldn't find specific information about that in our database. Could you try rephrasing your question or ask about FAQs, Eligibility, Application Process, Curriculum, Policies, Schedules, or Locations?"
-5. Humanize the response but stay accurate to the provided information
+QUESTION: {query}
 
-Your response:`;
+Answer based only on the knowledge base above. Be direct and concise (2–4 sentences). No markdown.`;
+
+// ─── Out-of-scope detection ───────────────────────────────────────────────────
+// Fast client-side guard — skips the Ollama round-trip for obviously off-topic queries.
+
+const OUT_OF_SCOPE_PATTERNS = [
+  /\b(weather|sport|football|cricket|news|stock|crypto|bitcoin|recipe|cook)\b/i,
+  /\b(write (me |a )?(code|script|essay|email|letter))\b/i,
+  /\b(who (is|was) (the )?(president|prime minister|ceo))\b/i,
+  /\b(translate|summarize|summarise)\b/i,
+];
+
+export function getSystemPrompt(): string {
+  return SYSTEM_PROMPT;
 }
 
-/**
- * Check if a query contains out-of-scope keywords
- */
+export function getUserPromptTemplate(): string {
+  return USER_PROMPT_TEMPLATE;
+}
+
 export function isOutOfScope(query: string): boolean {
-  const queryLower = query.toLowerCase();
-  return MODEL_CONSTRAINTS.outOfScopeKeywords.some((keyword) =>
-    queryLower.includes(keyword.toLowerCase())
-  );
+  return OUT_OF_SCOPE_PATTERNS.some((p) => p.test(query));
 }
-

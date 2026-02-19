@@ -1,36 +1,46 @@
-export type EligibilityOrder = 'asc' | 'desc';
+// ─── Enums ────────────────────────────────────────────────────────────────────
 
-//* Query params (optional for pagination and sorting)
-export interface EligibilityQuery {
-  limit?: number;
-  offset?: number;
-  sort?: string;
-  order?: EligibilityOrder;
+export type CriterionType =
+  | "age"
+  | "citizenship"
+  | "qualification"
+  | "employment_status"
+  | "financial"
+  | "other";
+
+// ─── Core Entity ──────────────────────────────────────────────────────────────
+
+export interface EligibilityCriterion {
+  id: string;
+  programme_id: string;
+  criterion_type: CriterionType;
+  requirement_text: string;
+  is_mandatory: boolean;
+  sort_order: number;
+  created_at: string; // ISO 8601 datetime string
+  updated_at: string; // ISO 8601 datetime string
 }
 
-//* Actual eligibility item
-export interface EligibilityItem {
-  id: string;
-  programme_id: string;
-  criterion_type: string;
-  requirement_text: string;
-  is_mandatory: boolean;
-  sort_order: number;
-  created_at?: string;
-  updated_at?: string;
+// ─── Pagination ───────────────────────────────────────────────────────────────
+
+export interface Pagination {
+  total: number;
+  limit: number;
+  offset: number;
+  hasMore: boolean;
 }
 
-//* API response
-export interface EligibilityResponse {
-  data: EligibilityItem[];
-  pagination: {
-    total: number;
-    limit: number;
-    offset: number;
-    hasMore: boolean;
-  };
-  meta?: {
-    timestamp: string;
-    endpoint: string;
-  };
+// ─── Meta ─────────────────────────────────────────────────────────────────────
+
+export interface ApiMeta {
+  timestamp: string; // ISO 8601 datetime string
+  endpoint: string;
+}
+
+// ─── API Response ─────────────────────────────────────────────────────────────
+
+export interface EligibilityApiResponse {
+  data: EligibilityCriterion[];
+  pagination: Pagination;
+  meta: ApiMeta;
 }
