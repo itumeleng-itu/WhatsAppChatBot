@@ -1,6 +1,9 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+/**
+ * Log entry interface
+ */
 export interface QueryLog {
   id: string;
   learnerId: string;
@@ -12,7 +15,7 @@ export interface QueryLog {
 }
 
 /**
- * Service for logging learner queries and responses for QA purposes
+ * Service for logging learner queries and responses
  */
 export class QueryLogger {
   private logDir: string;
@@ -83,15 +86,11 @@ export class QueryLogger {
       try {
         const existingData = await fs.readFile(logFile, 'utf-8');
         logs = JSON.parse(existingData);
-      } catch (error) {
-        // File doesn't exist yet, start with empty array
+      } catch {
         logs = [];
       }
 
-      // Append new log entry
       logs.push(entry);
-
-      // Write back to file
       await fs.writeFile(logFile, JSON.stringify(logs, null, 2), 'utf-8');
     } catch (error) {
       console.error(`Error writing log entry (${logType}):`, error);
@@ -106,21 +105,16 @@ export class QueryLogger {
   }
 
   /**
-   * Get logs for a specific date
+   * Get logs for a specific date (optional date defaults to today)
    */
-  async getLogs(logType: string, date: string): Promise<any[]> {
-    const logFile = path.join(this.logDir, `${logType}-${date}.json`);
+  async getLogs(logType: string, date?: string): Promise<QueryLog[]> {
     try {
+      const logDate = date || new Date().toISOString().split('T')[0];
+      const logFile = path.join(this.logDir, `${logType}-${logDate}.json`);
       const data = await fs.readFile(logFile, 'utf-8');
       return JSON.parse(data);
-    } catch (error: any) {
-      if (error.code === 'ENOENT') {
-        // File doesn't exist yet (no logs for this date) - return empty array
-        return [];
-      }
-      // Real error (permissions, corruption, etc.) - throw
-      throw new Error(`Failed to read log file ${logFile}: ${error.message}`);
+    } catch {
+      return [];
     }
   }
-
 }

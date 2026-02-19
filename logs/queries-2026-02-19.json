@@ -1,0 +1,92 @@
+[
+  {
+    "timestamp": "2026-02-19T06:33:51.676Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T06:43:30.853Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T06:44:08.354Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T06:54:51.841Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T06:57:23.696Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:00:38.830Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:00:56.177Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:01:58.747Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:12:25.814Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:14:08.300Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:22:14.242Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:25:23.664Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:35:54.889Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:36:27.517Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-19T07:37:30.175Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  }
+]

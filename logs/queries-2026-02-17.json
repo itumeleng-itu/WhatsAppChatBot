@@ -1,0 +1,38 @@
+[
+  {
+    "timestamp": "2026-02-17T13:31:54.130Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-17T13:33:27.902Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-17T13:41:37.085Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-17T13:50:00.174Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-17T13:51:55.550Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  },
+  {
+    "timestamp": "2026-02-17T13:55:22.847Z",
+    "learnerId": "learner1",
+    "query": "What is AI?",
+    "type": "query"
+  }
+]
