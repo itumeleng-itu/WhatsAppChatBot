@@ -1,137 +1,80 @@
-import axios from 'axios';
-import { BusinessApiService } from '../../../src/services/business-api.service';
-
-jest.mock('axios');
+// tests/unit/services/business-api.test.ts
+import { BusinessApiService, FAQData } from '../../../src/services/business-api.service';
 
 describe('BusinessApiService', () => {
   let service: BusinessApiService;
   let mockGet: jest.Mock;
 
   beforeEach(() => {
+    // Set retryDelay = 0 to make tests run instantly
+    service = new BusinessApiService(0, 3);
+
+    // Mock the internal "get" method (axios or fetch) used inside service
     mockGet = jest.fn();
+    (service as any).get = mockGet;
 
-    // 🔥 Mock axios.create to return fake client
-    (axios.create as jest.Mock).mockReturnValue({
-      get: mockGet,
-    });
-
-    service = new BusinessApiService();
     jest.clearAllMocks();
   });
 
-  // =====================================================
-  // ✅ getAllFAQs
-  // =====================================================
-  describe('getAllFAQs', () => {
-    it('should call /faqs with scope param and return formatted data', async () => {
-      const fakeResponse = {
-        data: {
-          data: [
-            {
-              id: '1',
-              category: 'tech',
-              question: 'What is Node?',
-              answer: 'Runtime',
-            },
-          ],
-          pagination: {},
-          meta: {},
-        },
-      };
+  // ── getAllFAQs ─────────────────────────────────────────────
+  it('should call /faqs and return formatted data', async () => {
+    const fakeResponse = {
+      data: {
+        data: [
+          { id: '1', question: 'What is Node?', answer: 'Runtime', category: 'tech' },
+        ],
+        pagination: {},
+      },
+    };
 
-      mockGet.mockResolvedValue(fakeResponse);
+    mockGet.mockResolvedValue(fakeResponse);
 
-      const result = await service.getAllFAQs();
+    const result = await service.getAllFAQs();
 
-      expect(mockGet).toHaveBeenCalledWith('/faqs', {
-        params: { scope: 'codetribe' },
-      });
-
-      expect(result).toEqual(fakeResponse.data.data);
-    });
-
-    it('should throw error if API fails', async () => {
-      mockGet.mockRejectedValue(new Error('API error'));
-
-      await expect(service.getAllFAQs()).rejects.toThrow(
-        'Failed to fetch FAQ data'
-      );
-    });
+    expect(mockGet).toHaveBeenCalledWith('/faqs', { params: { scope: 'codetribe', limit: undefined, offset: undefined } });
+    expect(result).toEqual(fakeResponse.data.data);
   });
 
-  // =====================================================
-  // ✅ searchFAQs
-  // =====================================================
-  describe('searchFAQs', () => {
-    it('should pass query as "q" param and return results', async () => {
-      const fakeResponse = {
-        data: {
-          data: [
-            {
-              id: '2',
-              category: 'tech',
-              question: 'What is JS?',
-              answer: 'Language',
-            },
-          ],
-          pagination: {},
-          meta: {},
-        },
-      };
+  it('should throw error if API fails', async () => {
+    mockGet.mockRejectedValue(new Error('API error'));
 
-      mockGet.mockResolvedValue(fakeResponse);
-
-      const result = await service.searchFAQs('JavaScript');
-
-      expect(mockGet).toHaveBeenCalledWith('/faqs', {
-        params: {
-          scope: 'codetribe',
-          q: 'JavaScript',
-        },
-      });
-
-      expect(result).toEqual(fakeResponse.data.data);
-    });
-
-    it('should return empty array on network error (not throw)', async () => {
-      mockGet.mockRejectedValue(new Error('Network error'));
-
-      const result = await service.searchFAQs('Test');
-
-      expect(result).toEqual([]);
-    });
+    await expect(service.getAllFAQs()).rejects.toThrow('API error');
   });
 
-  // =====================================================
-  // ✅ getCategories
-  // =====================================================
-  describe('getCategories', () => {
-    it('should return array of category strings', async () => {
-      const fakeResponse = {
-        data: {
-          data: ['tech', 'finance', 'health'],
-          pagination: {},
-          meta: {},
-        },
-      };
+  // ── searchFAQs ────────────────────────────────────────────
+  it('should return FAQs on successful search', async () => {
+    const fakeFAQs: FAQData[] = [
+      { id: '1', question: 'Q?', answer: 'A', category: 'test' },
+    ];
+    mockGet.mockResolvedValue({ data: { data: fakeFAQs } });
 
-      mockGet.mockResolvedValue(fakeResponse);
+    const result = await service.searchFAQs('Q?');
+    expect(result).toEqual(fakeFAQs);
+    expect(mockGet).toHaveBeenCalledWith('/faqs', { params: { scope: 'codetribe', query: 'Q?', limit: undefined, offset: undefined } });
+  });
 
-      const result = await service.getCategories();
+  it('should return empty array on network error', async () => {
+    mockGet.mockRejectedValue(new Error('Network error'));
 
-      expect(mockGet).toHaveBeenCalledWith('/faqs/categories', {
-        params: { scope: 'codetribe' },
-      });
+    const result = await service.searchFAQs('Test');
+    expect(result).toEqual([]);
+  });
 
-      expect(result).toEqual(['tech', 'finance', 'health']);
-    });
+  // ── getCategories ─────────────────────────────────────────
+  it('should return array of category strings', async () => {
+    const categories = ['tech', 'finance'];
+    mockGet.mockResolvedValue({ data: { data: categories } });
 
-    it('should return empty array on error', async () => {
-      mockGet.mockRejectedValue(new Error('API error'));
+    const result = await service.getCategories();
 
-      const result = await service.getCategories();
+    expect(result).toEqual(categories);
+    expect(mockGet).toHaveBeenCalledWith('/faqs/categories', { params: { scope: 'codetribe' } });
+  });
 
-      expect(result).toEqual([]);
-    });
+  it('should return empty array on error', async () => {
+    mockGet.mockRejectedValue(new Error('API error'));
+
+    const result = await service.getCategories();
+    expect(result).toEqual([]);
   });
 });

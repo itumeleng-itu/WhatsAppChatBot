@@ -2,6 +2,7 @@ import { Ollama } from 'ollama';
 import { BusinessApiService, FAQData } from './business-api.service';
 import { getSystemPrompt, getUserPromptTemplate } from '../config/model.config';
 
+<<<<<<< Updated upstream
 interface OllamaConfig {
   model: string;
   temperature: number;
@@ -21,65 +22,74 @@ const MAX_CONTEXT_FAQS = 5;
 export class OllamaService {
   private ollama: Ollama;
   private config: OllamaConfig;
+=======
+interface ChatMessage {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+}
+
+interface OllamaConfig {
+  model: string;
+  temperature: number;
+  maxTokens: number;
+  systemPrompt: string;
+}
+
+export class OllamaService {
+  private ollama: Ollama;
+>>>>>>> Stashed changes
   private businessApi: BusinessApiService;
+  private config: OllamaConfig;
   private requestTimeoutMs: number;
+  private readonly MAX_CONTEXT_FAQS = 5;
 
   constructor() {
     const ollamaUrl = process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
     this.ollama = new Ollama({ host: ollamaUrl });
     this.businessApi = new BusinessApiService();
-
-    // 120s default for complex queries with context. Some queries (especially with eligibility/curriculum data) can take longer.
     this.requestTimeoutMs = parseInt(
       process.env.OLLAMA_REQUEST_TIMEOUT_MS || '120000',
       10
     );
-
     this.config = {
       model: process.env.OLLAMA_MODEL || 'llama3.2',
-      // Lower temperature → more deterministic, factual, concise answers
       temperature: parseFloat(process.env.OLLAMA_TEMPERATURE || '0.3'),
-      // 400 tokens is enough for a clear WhatsApp answer. Raising this slows the model.
       maxTokens: parseInt(process.env.OLLAMA_MAX_TOKENS || '400', 10),
       systemPrompt: getSystemPrompt(),
     };
   }
 
-  // ─── Core public method ───────────────────────────────────────────────────
-
   async generateResponse(
     userQuery: string,
     contextFAQs?: FAQData[]
   ): Promise<{ response: string; confidence: number }> {
+    // Fetch FAQs if not provided
+    let faqs = contextFAQs ?? (await this.businessApi.searchFAQs(userQuery));
 
-    // 1. Fetch + rank FAQs if not provided
-    let faqs = contextFAQs ?? await this.businessApi.searchFAQs(userQuery);
+    // Rank and keep top N
+    faqs = this.rankFAQsByRelevance(faqs, userQuery).slice(0, this.MAX_CONTEXT_FAQS);
 
-    // 2. Rank by relevance and keep only the top N — this is the key perf fix
-    faqs = this.rankFAQsByRelevance(faqs, userQuery).slice(0, MAX_CONTEXT_FAQS);
-
-    // 3. Build a compact context string
     const context = this.buildContext(faqs, userQuery);
 
-    // 4. Build messages
     const messages: ChatMessage[] = [
       { role: 'system', content: this.config.systemPrompt },
       { role: 'user', content: this.buildUserPrompt(userQuery, context) },
     ];
 
-    // 5. Call Ollama with timeout
-    const chatPromise = this.ollama.chat({
-      model: this.config.model,
-      messages,
-      options: {
-        temperature: this.config.temperature,
-        num_predict: this.config.maxTokens ?? 400,
-        // Stop sequences prevent the model from rambling past a natural answer end
-        stop: ['\n\nUser:', '\n\nQ:', '---'],
-      },
-    });
+    const raw = await this.withTimeout(
+      this.ollama.chat({
+        model: this.config.model,
+        messages,
+        options: {
+          temperature: this.config.temperature,
+          num_predict: this.config.maxTokens,
+          stop: ['\n\nUser:', '\n\nQ:', '---'],
+        },
+      }),
+      this.requestTimeoutMs,
+      'Ollama chat'
+    );
 
-    const raw = await this.withTimeout(chatPromise, this.requestTimeoutMs, 'Ollama chat');
     const response = raw.message.content.trim();
 
     return {
@@ -88,14 +98,8 @@ export class OllamaService {
     };
   }
 
-  // ─── Ranking ──────────────────────────────────────────────────────────────
-
-  /**
-   * Score each FAQ by how many query words appear in its question+answer text,
-   * then sort descending. This gives the model only the most relevant context
-   * and is the single biggest factor in both answer quality and response speed.
-   */
   private rankFAQsByRelevance(faqs: FAQData[], userQuery: string): FAQData[] {
+<<<<<<< Updated upstream
     // Normalise + remove common stop words so "what is the" doesn't dilute scores
     const stopWords = new Set([
       'a', 'an', 'the', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
@@ -175,37 +179,30 @@ export class OllamaService {
     // Sort by score, but keep ALL FAQs (don't filter score 0)
     // This ensures we always have context, even if ranking is imperfect
     return scored
+=======
+    const queryWords = userQuery.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
+    return faqs
+      .map((faq) => {
+        const text = `${faq.question} ${faq.answer}`.toLowerCase();
+        let score = queryWords.filter((w) => text.includes(w)).length;
+        return { faq, score };
+      })
+>>>>>>> Stashed changes
       .sort((a, b) => b.score - a.score)
       .map((s) => s.faq);
   }
 
-  // ─── Prompt builders ──────────────────────────────────────────────────────
-
-  /**
-   * Compact context: only question + answer, no redundant labels.
-   * Keeping this short is critical for llama3.2 speed and accuracy.
-   */
   private buildContext(faqs: FAQData[], userQuery: string): string {
-    if (faqs.length === 0) {
-      return 'No relevant information found in the knowledge base.';
-    }
-
-    const entries = faqs.map((faq, i) =>
-      `[${i + 1}] Q: ${faq.question}\n    A: ${faq.answer.trim()}`
-    );
-
-    return entries.join('\n\n');
+    if (!faqs.length) return 'No relevant information found in the knowledge base.';
+    return faqs.map((faq, i) => `[${i + 1}] Q: ${faq.question}\n    A: ${faq.answer.trim()}`).join('\n\n');
   }
 
   private buildUserPrompt(userQuery: string, context: string): string {
-    // If model.config exports a template, use it; otherwise fall back to the
-    // inline template below which is tuned for direct, concise answers.
     try {
       return getUserPromptTemplate()
         .replace('{query}', userQuery)
         .replace('{context}', context);
     } catch {
-      // Fallback prompt — optimised to prevent deflection
       return `KNOWLEDGE BASE (use ONLY this to answer):
 ${context}
 
@@ -213,50 +210,30 @@ LEARNER QUESTION: ${userQuery}
 
 Instructions:
 - Answer directly using the knowledge base above.
-- If the answer is clearly present, give it concisely in 2–4 sentences.
-- Do NOT ask the learner to rephrase or provide more info if the answer exists above.
-- If the information is genuinely not in the knowledge base, say so briefly and suggest they contact support.
-- Keep the tone friendly and WhatsApp-appropriate (no markdown headers).`;
+- Concise 2–4 sentences.
+- Say if info is missing and suggest contacting support.
+- Friendly WhatsApp tone, no markdown headers.`;
     }
   }
 
-  // ─── Confidence ───────────────────────────────────────────────────────────
-
   private calculateConfidence(faqs: FAQData[], userQuery: string): number {
-    if (faqs.length === 0) return 0.2;
-
-    const queryWords = userQuery
-      .toLowerCase()
-      .split(/\s+/)
-      .filter((w) => w.length > 2);
-
+    if (!faqs.length) return 0.2;
+    const queryWords = userQuery.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
     let maxScore = 0;
     for (const faq of faqs) {
       const text = `${faq.question} ${faq.answer}`.toLowerCase();
       const matches = queryWords.filter((w) => text.includes(w)).length;
       maxScore = Math.max(maxScore, matches / queryWords.length);
     }
-
     return Math.min(maxScore, 1.0);
   }
-
-  // ─── Utility ──────────────────────────────────────────────────────────────
 
   private withTimeout<T>(promise: Promise<T>, ms: number, operation: string): Promise<T> {
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
-        reject(
-          new Error(
-            `${operation} timed out after ${ms}ms. ` +
-            `Ensure Ollama is running at ${process.env.OLLAMA_URL || 'http://localhost:11434'} ` +
-            `and the model "${this.config.model}" is loaded (ollama pull ${this.config.model}).`
-          )
-        );
+        reject(new Error(`${operation} timed out after ${ms}ms.`));
       }, ms);
-      promise.then(
-        (v) => { clearTimeout(timer); resolve(v); },
-        (e) => { clearTimeout(timer); reject(e); }
-      );
+      promise.then((v) => { clearTimeout(timer); resolve(v); }, (e) => { clearTimeout(timer); reject(e); });
     });
   }
 
