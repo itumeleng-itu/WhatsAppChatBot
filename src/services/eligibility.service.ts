@@ -8,6 +8,6 @@ export const fetchEligibility = async (
   params?: RawParams
 ): Promise<EligibilityApiResponse> => {
   const query = params ? parseEligibilityQueryParams(params) : {};
-  const url = buildUrl(`/api/eligibility/${programmeId}`,query );
+  const url = buildUrl(`/api/eligibility/${programmeId}`, query);
   return apiFetch<EligibilityApiResponse>(url, 'eligibility');
 };

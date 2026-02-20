@@ -1,5 +1,5 @@
 import { parsePaginationParams, type RawParams, type BasePaginationQuery } from './sharedfile-utility/parseQuery.sharedFile';
 
-export function parseEligibilityQueryParams(params: RawParams): BasePaginationQuery {
+export function parseLocationsQueryParams(params: RawParams): BasePaginationQuery {
   return parsePaginationParams(params);
 }

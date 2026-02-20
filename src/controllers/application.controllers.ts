@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
-import { fetchApplicationSteps } from '../services/application.services';
-import { handleControllerError, extractQuery, extractParam } from './controllersutils/controllers.utilscontroller';
+import { Request, Response } from "express";
+import { fetchApplicationSteps } from "../services/application.services";
+import { extractParam, extractQuery, handleControllerError } from "./controllersutils/controllers.utilscontroller";
 
 export const getApplicationSteps = async (req: Request, res: Response): Promise<void> => {
   try {

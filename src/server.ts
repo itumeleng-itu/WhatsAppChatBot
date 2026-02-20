@@ -3,7 +3,6 @@ import 'dotenv/config';
 import whatsappRoutes from './routes/whatsapp.routes';
 import mlabRoutes from './routes/mlab.routes';
 import { BusinessApiService } from './services/business-api.service';
-import programmesRouter from './routes/programmes.routes';
 import policiesRouter from './routes/policies.routes';
 import faqsRouter from './routes/faq.routes';
 import applicationStepRouter from './routes/application.routes';
@@ -20,8 +19,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-//? API endpoint for programmes
-app.use('/api/programmes', programmesRouter);
 
 //? API endpoint for policies
 app.use('/api/policies', policiesRouter);

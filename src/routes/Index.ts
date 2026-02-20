@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import programmeRoutes from './programmes.routes';
 import policiesRoutes from './policies.routes';
 import faqRoutes from './faq.routes';
 import applicationStepRoutes from './application.routes';
@@ -9,7 +8,6 @@ import schedulesRoutes from './schedule.routes';
 
 const router = Router();
 
-router.use('/programmes', programmeRoutes);
 router.use('/policies', policiesRoutes);
 router.use('/faqs', faqRoutes);
 router.use('/application-process', applicationStepRoutes);

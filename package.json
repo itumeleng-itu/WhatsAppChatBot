@@ -11,7 +11,7 @@
     "test:unit": "jest tests/unit --runInBand",
     "test:integration": "jest tests/integration --runInBand",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --runInBand"
+    "test:coverage": "jest --coverage --runInBand",
     "dev": "nodemon --watch src/**/* --exec \"npx ts-node\" src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",

@@ -1,6 +1,5 @@
-import { parsePaginationParams, type RawParams } from './sharedfile-utility/parseQuery.sharedFile';
-import type { SchedulesQueryParams } from '../types/schedules.types';
+import { parsePaginationParams, type RawParams, type BasePaginationQuery } from './sharedfile-utility/parseQuery.sharedFile';
 
-export function parseSchedulesQueryParams(params: RawParams): SchedulesQueryParams {
+export function parseSchedulesQueryParams(params: RawParams): BasePaginationQuery {
   return parsePaginationParams(params);
 }

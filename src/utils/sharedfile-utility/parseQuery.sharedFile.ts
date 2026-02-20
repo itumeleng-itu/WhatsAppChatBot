@@ -1,5 +1,7 @@
-//!  Shared query-param parsing utilities
-//!  Used by all resource-specific parsers below
+// ─────────────────────────────────────────────
+//  Shared query-param parsing utilities
+//  Used by all resource-specific parsers below
+// ─────────────────────────────────────────────
 
 export type RawParams = Record<string, string | string[] | undefined>;
 export type Order = 'asc' | 'desc';
@@ -13,13 +15,13 @@ export interface BasePaginationQuery {
 
 const VALID_ORDERS = new Set<string>(['asc', 'desc']);
 
-//** Safely coerce a query param to a single string (takes first item if array).
+/** Safely coerce a query param to a single string (takes first item if array). */
 export function scalar(value: string | string[] | undefined): string | undefined {
   if (Array.isArray(value)) return value[0];
   return value;
 }
 
-//** Parse the four pagination/sorting params shared by every query interface. 
+/** Parse the four pagination/sorting params shared by every query interface. */
 export function parsePaginationParams(params: RawParams): BasePaginationQuery {
   const result: BasePaginationQuery = {};
 

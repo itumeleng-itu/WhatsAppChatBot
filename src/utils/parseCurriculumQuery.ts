@@ -1,6 +1,5 @@
-import { parsePaginationParams, type RawParams } from './sharedfile-utility/parseQuery.sharedFile';
-import type { CurriculumQuery } from '../types/curriculum.types';
+import { parsePaginationParams, type RawParams, type BasePaginationQuery } from './sharedfile-utility/parseQuery.sharedFile';
 
-export function parseCurriculumQueryParams(params: RawParams): CurriculumQuery {
+export function parseCurriculumQueryParams(params: RawParams): BasePaginationQuery {
   return parsePaginationParams(params);
 }
